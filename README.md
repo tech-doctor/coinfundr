@@ -5,14 +5,21 @@ A decentralized funding application where you can get money raised for an indivi
 
 ## Project Use
 can be used by DAOs to raise funding.
+
 can be used by an individual to get money raised.
 
 ## DApp Tech Stack
-Solidity,
-React/Nextjs,
-Typescript,
-Tailwindcss and
+Solidity
+
+React/Nextjs
+
+Typescript
+
+Tailwindcss 
+
 Material UI
+
+##
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
