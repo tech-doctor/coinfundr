@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 html,
 body {
   padding: 0;
@@ -18,6 +19,7 @@ a {
 
 * {
   box-sizing: border-box;
+  /* outline: 1px solid black */
 }
 
 /* @media (prefers-color-scheme: dark) {
