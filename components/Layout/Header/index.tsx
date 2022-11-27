@@ -1,10 +1,22 @@
 import React, {useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import ActiveLink from './activeLink';
+import AccountComponent from '../../Account';
 
 
 const Header = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
+
+  const connectWallet = () => {
+    setIsConnected(true);
+    setDisplayPopup(true);
+    setTimeout(() => {
+      setDisplayPopup(false);
+    }, 2000)
+  }
+
+  console.log('done')
 
   return (
     <div className=' px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 2xl:px-14 shadow-md md:shadow-none pb-1 md:pb-0'>
@@ -33,19 +45,17 @@ const Header = () => {
               Charities
            </ActiveLink>
           </li>
-          {!isConnected? 
-            <li className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer
+          {!isConnected?
+            <li 
+            onClick={connectWallet}
+            className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer
             hover:bg-black hover:text-white
             ">
               Connect MetaMask  Wallet
             </li> : 
-            <li className="charities font-medium ml-3 cursor-pointer">
-              <ActiveLink href={"/account"}>
-              <img 
-              className='border-[1.5px] border-gray-300 hover:border-gray-400 rounded-full p-[3px] w-[45px] h-[45px]'
-              src='/account.png' alt=' Coinfundr account navigation logo'/>
-              </ActiveLink>
-            </li>
+          <AccountComponent
+            displayPopUp = {displayPopUp}
+          />
           }
         </ul>
         <ul className=' mobile_account md:hidden'>

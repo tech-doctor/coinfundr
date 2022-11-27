@@ -10,8 +10,7 @@ interface Props {
     const router =  useRouter();
     const path = router.asPath
     const style = {
-     color: path === href && path !== '/' ?  'black' : '',
-     //transform: path === href && path !== '/' ? 'scale(1.5)' : 'scale(1)'
+     color: path === href && path !== '/' ?  'black' : ''
     }
   
     const handleClick = (e:any) => {
