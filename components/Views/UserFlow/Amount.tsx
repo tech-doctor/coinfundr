@@ -5,7 +5,7 @@ import Owner from './Owner';
 
 const Amount = () => {
   const [isConnected, setIsConnected] = useState<boolean>(true);
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('$');
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
   const [displayField, setDisplayField] = useState<boolean>(false);
@@ -22,6 +22,10 @@ const Amount = () => {
       setDisplayField(true);
     }
   }
+
+  //const data = new Object()
+
+  
   
   return(
     <div>

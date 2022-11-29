@@ -12,15 +12,13 @@ const reasons = ['Medical Care', 'Community','Family', 'Animals', 'Feeding', 'Ev
 //   <Owner/>, <Amount/>, <FundraiserField/>
 // ]
 
+//console.log(window)
 
 const Reason = () => {
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayHeroArticle, setDisplayHeroArticle] = useState<boolean>(false);
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
-  //  const style = {
-  //   backgroundColor: '#c9e8cd',
-  //   border: '2px solid #6BC683'
-  //  }
+  const [reason, setReason] = useState<string>("")
   
    const select = (event:any) => {
     event.target.style = ""
@@ -35,6 +33,8 @@ const Reason = () => {
     setDisplayCurrentView(false)
     setDisplayOwner(true)
    }
+
+   
 
   return(
     <div>

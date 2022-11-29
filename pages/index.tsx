@@ -15,8 +15,8 @@ const  Home = () => {
       <div className='hero flex flex-wrap items-center justify-between h-full w-full'>
         <div className="left  my-5 lg:my-3 w-full lg:w-[45%] xl:w-[45%]">
           {/* <HeroArticle/> */}
-          {/* <Reason/> */}
-          <Owner/>
+          <Reason/>
+          {/* <Owner/> */}
           {/* <Amount/> */}
           {/* <FundraiserField/> */}
           {/* <FundraiserSuccess/> */}
