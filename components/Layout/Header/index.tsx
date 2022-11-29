@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import ActiveLink from './activeLink';
-import AccountComponent from '../../Account';
+import AccountComponent from '../../AccountHeader';
 
 
 const Header = () => {
