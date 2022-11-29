@@ -16,10 +16,10 @@ const  Home = () => {
         <div className="left  my-5 lg:my-3 w-full lg:w-[45%] xl:w-[45%]">
           {/* <HeroArticle/> */}
           {/* <Reason/> */}
-          {/* <Owner/> */}
+          <Owner/>
           {/* <Amount/> */}
           {/* <FundraiserField/> */}
-          <FundraiserSuccess/>
+          {/* <FundraiserSuccess/> */}
         </div>
         <div className="right w-full lg:w-[50%]">
           <img

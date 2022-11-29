@@ -8,9 +8,9 @@ import Owner from './Owner';
 const reasons = ['Medical Care', 'Community','Family', 'Animals', 'Feeding', 'Events', 'Housing', 'Travel', 'Sports', 'Monthly Bills', 'Funeral Services', 'Education', 'Utilities', 'Other']
 
 
-const component = [
-  <Owner/>, <Amount/>, <FundraiserField/>
-]
+// const component = [
+//   <Owner/>, <Amount/>, <FundraiserField/>
+// ]
 
 
 const Reason = () => {

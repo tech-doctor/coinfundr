@@ -33,9 +33,11 @@ const Owner = () => {
     // }
   }
 
-  const next = () => {
+  const next = (event:any) => {
     setDisplayCurrentView(false);
     setDisplayAmount(true);
+    console.log(event.target)
+
   }
  
    return(
