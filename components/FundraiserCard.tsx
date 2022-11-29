@@ -26,11 +26,11 @@ export default function FundraiserCard(props) {
 
                   <div className="flex justify-between">
                     <div>
-                      <h3 className="text-[1rem] font-bold text-[#1F1F1F] tracking-widest">$1{props.currentRaised}</h3>
+                      <h3 className="text-[1rem] font-bold text-[#1F1F1F] tracking-wide">$1{props.currentRaised}</h3>
                       <p className="text-xs text-[#94999A]">Raised of ${props.goal}</p>
                     </div>
                     <div>
-                      <h3 className="text-[1rem] font-bold text-[#1F1F1F]">{props.donations}</h3>
+                      <h3 className="text-[1rem] font-bold text-[#1F1F1F] tracking-wide">{props.donations}</h3>
                       <p className="text-xs text-[#94999A]">Total donations</p>
                     </div>
                   </div>

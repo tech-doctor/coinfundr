@@ -61,7 +61,7 @@ function  SearchInput({ onFocusHandler }: SearchProps) {
     <>
       <div className="flex justify-around my-16">
         <input 
-            className="border-2 rounded-full border-[#FFFFFF] w-2/3 lg:w-1/3  px-4 py-2 bg-[#E5E6E4] font-[Circular] text-[#94999A] text-xl text-center" type="text" placeholder="Search for fundraisers"
+            className="border-2 rounded-full outline-[#68C581] border-[#FFFFFF] w-2/3 lg:w-1/3  px-4 py-2 bg-[#E5E6E4] font-[Circular] text-[#94999A] text-xl text-center" type="text" placeholder="Search for fundraisers"
             onChange={onChange}
             onFocus={onFocus}
             ref={searchRef}
@@ -78,15 +78,15 @@ function  SearchInput({ onFocusHandler }: SearchProps) {
                     {results.map(item => (
                         <Link  href="/search/[id]" as={`/search/${item.id}`}>
                             <FundraiserCard 
-                            id={item?.id}
-                            name={item?.name}
-                            img={item?.img}
-                            organiser={item?.organiser}
-                            goal={item?.goal}
-                            donations={item?.donations}
-                            currentRaised={item?.currentRaised}
+                                id={item?.id}
+                                name={item?.name}
+                                img={item?.img}
+                                organiser={item?.organiser}
+                                goal={item?.goal}
+                                donations={item?.donations}
+                                currentRaised={item?.currentRaised}
 
-                        />
+                            />
                         </Link>
                     ))}
                 </div>

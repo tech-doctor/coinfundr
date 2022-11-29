@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <div className=' px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 2xl:px-14 shadow-md md:shadow-none pb-1 md:pb-0'>
-      <div className='flex items-center justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
+      <div className='flex items-center font-[Circular] justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
         <div className="left">
           <ActiveLink href = {'/'}>
             <img  className="w-32" src='/logo.png' alt='Coinfundr-logo'/>

@@ -4,6 +4,8 @@ export const data = [
     {
         id: 0,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: 'Help Dustin the Cat',
         organiser: 'Femi Abubakar',
         goal: 5000,
@@ -16,6 +18,8 @@ export const data = [
     {
         id: 1,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: `Help pay for Bola's School Fees`,
         organiser: 'Olawale Buhari',
         goal: 43000,
@@ -29,6 +33,8 @@ export const data = [
     {
         id: 2,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: 'Help the Nothern Almajiris',
         organiser: 'Uche Adegoke',
         goal: 120000,
@@ -42,6 +48,8 @@ export const data = [
     {
         id: 3,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: 'Help Dustin the Cat',
         organiser: 'Femi Abubakar',
         goal: 5000,
@@ -54,6 +62,8 @@ export const data = [
     {
         id: 4,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: `Help pay for Bola's School Fees`,
         organiser: 'Olawale Buhari',
         goal: 43000,
@@ -67,6 +77,8 @@ export const data = [
     {
         id: 5,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: 'Help the Nothern Almajiris',
         organiser: 'Uche Adegoke',
         goal: 120000,
@@ -80,6 +92,8 @@ export const data = [
     {
         id: 6,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: 'Help Dustin the Cat',
         organiser: 'Femi Abubakar',
         goal: 5000,
@@ -92,6 +106,8 @@ export const data = [
     {
         id: 7,
         img: '/dustin_the_cat.png',
+        imgTwo: '/human-right.png',
+        nft: '/nft.webp',
         name: `Help pay for Bola's School Fees`,
         organiser: 'Olawale Buhari',
         goal: 43000,
