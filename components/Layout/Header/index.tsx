@@ -23,7 +23,7 @@ const Header = () => {
       <div className='flex items-center justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
         <div className="left">
           <ActiveLink href = {'/'}>
-            <img src='/logo.png' alt='Coinfundr-logo'/>
+            <img  className="w-32" src='/logo.png' alt='Coinfundr-logo'/>
           </ActiveLink>  
         </div>
         <ul className = "flex items-center text-gray-600 hidden md:flex">
