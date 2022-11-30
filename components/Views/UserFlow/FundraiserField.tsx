@@ -106,7 +106,7 @@ const FundraiserField = () => {
             onClick={handleUploadClick}
             type='button'
               className='file_upload_button py-2 px-4 rounded-md font-medium bg-[#1F1F1F] text-white'>Upload Image</button><br/>
-              <small className='text-red-600'>No file selected.Select a file before you proceed</small>
+              <small className='text-red-600'>No file selected. Select a file before you proceed</small>
             {/* <span className='file_upload_label'>No file</span> */}
             </div>
           <div className="buttons flex justify-between">
