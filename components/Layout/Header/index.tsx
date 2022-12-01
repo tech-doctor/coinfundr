@@ -1,29 +1,31 @@
 import React, {useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { useAppSelector, useAppDispatch } from '../../../Store/hooks';
+import { updateWalletStatus } from '../../../Store/slice';
 import ActiveLink from './activeLink';
 import AccountComponent from '../../AccountHeader';
+import MobileHeader from './mobile';
 
 
 const Header = () => {
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+   const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
   const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
 
   const connectWallet = () => {
-    setIsConnected(true);
+    dispatch(updateWalletStatus(true))
     setDisplayPopup(true);
     setTimeout(() => {
       setDisplayPopup(false);
     }, 2000)
   }
 
-  console.log('done')
-
   return (
     <div className=' px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 2xl:px-14 shadow-md md:shadow-none pb-1 md:pb-0'>
-      <div className='flex items-center justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
+      <div className='flex items-center  justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
         <div className="left">
           <ActiveLink href = {'/'}>
-            <img src='/logo.png' alt='Coinfundr-logo'/>
+            <img  className="w-32" src='/logo.png' alt='Coinfundr-logo'/>
           </ActiveLink>  
         </div>
         <ul className = "flex items-center text-gray-600 hidden md:flex">
@@ -59,14 +61,8 @@ const Header = () => {
           }
         </ul>
         <ul className=' mobile_account md:hidden'>
-          <li className='mobile_account'>
-            {isConnected && 
-              <ActiveLink href={"/account"}>
-                <img 
-                className='border-[1.5px] border-gray-300 hover:border-gray-400 rounded-full p-[3px] w-[40px] h-[40px] sm:w-[45]'
-                src='/account.png' alt=' Coinfundr account navigation logo'/>
-              </ActiveLink>
-            }
+          <li className='mobile_account   cursor-pointer'>
+            <MobileHeader/>
           </li>
         </ul>
       </div>

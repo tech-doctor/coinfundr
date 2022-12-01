@@ -1,20 +1,53 @@
-import { useState } from "react"
-import Reason from "./Reason";
+import { useState } from "react";
 import Amount from "./Amount";
 import Owner from "./Owner";
 
 
+const charityBanners = [
+  {
+    id: 'Human-right',
+    src: '/human-right.png',
+    alt: 'Human right charity banner'
+  },
+  { 
+    id: 'Red-cross',
+    src: '/red-cross.png',
+    alt: 'Red cross charity banner'
+  },
+  {
+    id: 'ADL',
+    src: '/ADL.png',
+    alt: 'ADL charity banner'
+  },
+  {
+    id: 'Amnesty',
+    src: '/amnesty.png',
+    alt: 'Amnesty Charity Banner'
+  }
+]
 
 const Charity = () => {
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
   const [displayAmount, setDisplayAmount] = useState<boolean>(false);
+  const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [charity, setCharity] = useState<string>("")
 
+
+
+  const selectBanner = (id:string) => {
+    setSelectedId(id)
+    setCharity(id)
+    //console.log(id)
+   }
 
   const nextFlow = (event:any) => {
-       setDisplayCurrentView(false);
-       setDisplayAmount(true);
+    console.log(charity)
+    setDisplayCurrentView(false);
+    setDisplayAmount(true);
    }
+
+ 
  
    return(
     <div>
@@ -27,21 +60,21 @@ const Charity = () => {
          Please select a Charity of your choice
         </h1>
         <div className="owner my-5 text-sm mb-9 grid sm:grid-cols-2 gap-3">
-          <img 
-          className="w-full  sm:h-[210px] shadow-sm my-1 mr-3 rounded-[8px] border-2 border-black"
-          src="/human-right.png" alt="Human right charity banner"/>
-
-          <img 
-          className="w-full sm:h-[210px]  shadow-sm my-1 mr-3 rounded-[8px]"
-          src="/red-cross.png" alt="Human right charity banner"/>
-
-          <img 
-          className=" w-full sm:h-[210px] shadow-sm my-1 mr-3 rounded-[8px]"
-          src="/amnesty.png" alt="Human right charity banner"/>
-
-          <img 
-          className="w-full sm:h-[210px] shadow-sm my-1  mr-3 rounded-[8px]"
-          src="/human-right.png" alt="Human right charity banner"/>
+          {charityBanners.map((banner, index) => {
+            const {id, src, alt} = banner;
+             const activeClass = selectedId === id ? 'border-2 border-[#6BC683]' : ''
+            
+            return(
+              <img 
+              onClick={() => {
+                selectBanner(id)
+              }}
+              id = {id}
+              key = {id}
+              className={`w-full  sm:h-[210px] shadow-sm my-1 mr-3 rounded-[8px] hover:border-2 hover:border-[#6BC683] cursor-pointer ${activeClass}`}
+              src= {src} alt={alt}/>
+            )
+          })}
         </div> 
         <div className="buttons flex justify-between">
         <button 

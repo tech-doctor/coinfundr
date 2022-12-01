@@ -3,7 +3,7 @@ import Reason from "./Reason";
 import Amount from "./Amount";
 import Charity from "./Charity";
 
-const owner = [
+const owners = [
   {
     name: 'Self',
     info: 'Create a fundraiser for yourself'
@@ -14,25 +14,34 @@ const owner = [
   }
 ]
 
-
 const Owner = () => {
   const [charity, setCharity] = useState(false);
   const [selectCharity, setSelectCharity] = useState(false);
-  const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
+  const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true);
   const [displayReason, setDisplayReason] = useState<boolean>(false);
   const [displayAmount, setDisplayAmount] = useState<boolean>(false);
+  const [selectedIndex, setSelectedIndex] = useState<number | undefined>();
+
+  const [owner, setOwner] = useState<string>("")
 
 
-  const selectOwner = (event:any) => {
+  const selectOwner = (event:any, id:number) => {
+    setSelectedIndex(id)
     const parentElementAccessKey = event.target.parentElement.accessKey;
     const accessKey = event.target.accessKey;
-    if(parentElementAccessKey || accessKey === "Charity") {
-      //console.log('Got it')
+    console.log(event.target)
+    if(parentElementAccessKey == "Charity" || accessKey === "Charity") {
       setCharity(true)
+      setOwner("Charity")
+    }else{
+      setCharity(false)
+      setOwner("Self")
     }
+
   }
 
   const nextFlow = (event:any) => {
+    console.log(owner)
     if(charity === true){
       setSelectCharity(true)
     }
@@ -54,15 +63,20 @@ const Owner = () => {
           Who are you fundraising for?
         </h1>
        <div className="owner my-5 text-sm mb-9">
-          {owner.map((owner,i) => (
-            <div key = {i}
-            onClick = {selectOwner}
+          {owners.map((owner,index) => {
+             const activeClass = selectedIndex === index ? 'border-2 border-[#6BC683] bg-[#c9e8cd]' : ''
+            return(
+            <div key = {index}
+            onClick = {(event) => {
+               selectOwner(event, index)
+              }}
             accessKey = {owner.name}
-              className="border-2 py-2 px-5 rounded-2xl border-[#D9D9D9] hover:border-[#6BC683] text-[#1F1F1F] my-3 hover:bg-[#c9e8cd] cursor-pointer">
+              className={`border-2 py-2 px-5 rounded-2xl border-[#D9D9D9] hover:border-[#6BC683] text-[#1F1F1F] my-3 hover:bg-[#c9e8cd] cursor-pointer ${activeClass}`}>
               <p>{owner.name === 'Self'? "For Self" : "For Charity"}</p>
               <p className="text-[#5E6364] text-xs">{owner.info}</p>
               </div>
-            ))}
+            )
+         })}
         </div>
         <div className="buttons flex justify-between">
           <button 

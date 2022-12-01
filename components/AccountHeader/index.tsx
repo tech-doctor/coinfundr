@@ -8,7 +8,6 @@ interface Props {
 
 const AccountComponent:React.FC<Props> = ({displayPopUp}) => {
 
-  //console.log('done')
   return (
     <div>
       <li className="charities font-medium ml-3 cursor-pointer">
@@ -20,7 +19,6 @@ const AccountComponent:React.FC<Props> = ({displayPopUp}) => {
       </li>
       {displayPopUp &&  <ConnectSuccess/>}
     </div>
-    
   )
 }
 

@@ -1,39 +1,31 @@
 import {useState} from 'react';
-import Amount from './Amount';
-import FundraiserField from './FundraiserField';
-import FundraiserSuccess from './FundraiserSuccess';
 import HeroArticle from './HeroArticle';
 import Owner from './Owner';
 
-const reasons = ['Medical Care', 'Community','Family', 'Animals', 'Feeding', 'Events', 'Housing', 'Travel', 'Sports', 'Monthly Bills', 'Funeral Services', 'Education', 'Utilities', 'Other']
+const reasons:any = ['Medical Care', 'Community','Family', 'Animals', 'Feeding', 'Events', 'Housing', 'Travel', 'Sports', 'Monthly Bills', 'Funeral Services', 'Education', 'Utilities', 'Other']
 
-
-// const component = [
-//   <Owner/>, <Amount/>, <FundraiserField/>
-// ]
-
-//console.log(window)
 
 const Reason = () => {
-  const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
+  const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true);
   const [displayHeroArticle, setDisplayHeroArticle] = useState<boolean>(false);
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
-  const [reason, setReason] = useState<string>("")
+  const [selectedIndex, setSelectedIndex] = useState<number | undefined>();
+  const [reason, setReason] = useState<string>("");
   
-   const select = (event:any) => {
-    event.target.style = ""
-    if(event.target.textContent === event.target.id){
-      event.target.style = "border: 2px solid #6BC683; background-color:#c9e8cd"
-    }
-    console.log(event.target.textContent);
-   }
+
+  const select = (event:any, id:number) => {
+    setSelectedIndex(id)
+    const {textContent} = event.target;
+    ///console.log(event.target.textContent)
+    setReason(textContent);
+ }
 
    const handleClick = () => {
-    console.log('engine')
     setDisplayCurrentView(false)
     setDisplayOwner(true)
+    console.log(reason);
    }
-
+   
    
 
   return(
@@ -47,12 +39,18 @@ const Reason = () => {
           Reason for starting a fundraiser
         </h1>
         <div className="reasons my-5 text-sm flex flex-wrap">
-          {reasons.map((reason,i) => (
-            <p key = {i} 
+          {reasons.map((reason:any,index:number) => {
+            const activeClass = selectedIndex === index ? 'border-2 border-[#6BC683] bg-[#c9e8cd]' : ''
+            return (
+            <p 
+            key = {index} 
             id = {reason}
-            onClick = {select}
-            className="border-2 py-2 px-5 rounded-full border-[#D9D9D9] hover:border-[#6BC683] w-fit text-[#1F1F1F] mr-1 my-1 hover:bg-[#c9e8cd] focus:bg-red-500 cursor-pointer">{reason}</p>
-          ))}
+            onClick = {(event) => {
+              select(event, index)
+            }}
+            className={`border-2 py-2 px-5 rounded-full border-[#D9D9D9] hover:border-[#6BC683] w-fit text-[#1F1F1F] mr-1 my-1 hover:bg-[#c9e8cd] cursor-pointer${activeClass}`}>{reason}</p>
+            )
+          })}
         </div>
         <div className="buttons flex justify-between">
           <button 
@@ -71,8 +69,7 @@ const Reason = () => {
         </div>
       </article> }
       {displayOwner && <Owner/>}
-    </div>
-    
+    </div> 
   )
 }
   
