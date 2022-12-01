@@ -7,21 +7,27 @@ import Link from "next/link"
 
 const  Individuals = () => {
 
-  const fundraiserCardElems = data.map(item => (
-    <Link  href="/individuals/[id]" as={`/individuals/${item.id}`}>
-      <FundraiserCard 
-        id={item?.id}
-        name={item?.name}
-        img={item?.img}
-        organiser={item?.organiser}
-        goal={item?.goal}
-        donations={item?.donations}
-        currentRaised={item?.currentRaised}
-      />
-
-    </Link>
-
-  ))
+  const fundraiserCardElems = data.map(item => {
+    if (item.isOpen) {
+      return (
+        <Link  href="/individuals/[id]" as={`/individuals/${item.id}`}>
+          <FundraiserCard 
+            key={item?.id}
+            id={item?.id}
+            name={item?.name}
+            img={item?.img}
+            organiser={item?.organiser}
+            goal={item?.goal}
+            donations={item?.donations}
+            currentRaised={item?.currentRaised}
+            isOpen={item?.isOpen}
+          />
+    
+        </Link>
+    
+      )
+    }
+  })
 
   return (
     <Layout

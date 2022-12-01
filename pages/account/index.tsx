@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react'
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import Nft from '../components/Nft'
-import { myFundraisers } from './myFundraisersData'
-import { data } from './data'
-import { nftData } from './nftData'
-import FundraiserCard from '../components/FundraiserCard'
+import Nft from '../../components/Nft'
+import { myFundraisers } from '../myFundraisersData'
+import { nftData } from '../nftData'
+import FundraiserCard from '../../components/FundraiserCard'
 import Link from "next/link"
 
 
@@ -55,7 +54,7 @@ function a11yProps(index: number) {
   };
 
 
-  const myFundraiserCardElems = data.map(item => {
+  const myFundraiserCardElems = myFundraisers.map(item => {
     if (item.isOpen) {
       return (
         <Link  href="/account/[id]" as={`/account/${item.id}`}>
@@ -76,7 +75,7 @@ function a11yProps(index: number) {
     }
   })
 
-  const fundraiserHistoryCardElems = data.map(item => {
+  const fundraiserHistoryCardElems = myFundraisers.map(item => {
     if (!item.isOpen) {
       return (
         <Link  href="/account/[id]" as={`/account/${item.id}`}>
