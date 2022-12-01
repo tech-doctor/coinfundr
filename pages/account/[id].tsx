@@ -1,7 +1,5 @@
 import Layout from '../../components/Layout'
-//import { LinearProgress } from '@mui/material'
-import { data } from '../../components/data'
-//import { data } from '../data'
+import { data } from '../data'
 import FundraiserDetailPage from '../../components/FundraiserDetailPage'
 
 export default function FundraiserDetail({ id }) {
@@ -13,7 +11,7 @@ export default function FundraiserDetail({ id }) {
       key={item?.id}
       id={item?.id}
       name={item?.name}
-      img={item?.imgTwo}
+      img={item?.img}
       nft={item?.nft} 
       organiser={item?.organiser}
       goal={item?.goal}
@@ -21,14 +19,14 @@ export default function FundraiserDetail({ id }) {
       description={item?.description}
       donations={item?.donations}
       currentRaised={item?.currentRaised}
-      page={'charities'}
+      page={'account'}
+      isOpen={item?.isOpen}
     />
   ))
 
-
   return  (
     <Layout
-      title='Charities Fundraiser'
+      title='Account'
     >
       {detailPageElems}
     </Layout>

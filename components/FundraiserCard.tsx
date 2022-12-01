@@ -11,7 +11,7 @@ interface Props{
 }
 
 
-const  FundraiserCard:React.FC<Props> = ({img,name,organiser,currentRaised,goal,donations}) => {
+const  FundraiserCard:React.FC<Props> = ({img, name, organiser, currentRaised, goal, donations}) => {
   return (
     <div className="h-[21rem] w-[16rem] flex flex-col bg-white rounded-[8px] shadow-[0_.2px_30px_4px_rgba(29,48,59,0.04)]">
       <img className="w-[16rem] rounded-t-[8px] h-1/2" src={img}/>

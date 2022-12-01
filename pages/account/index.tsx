@@ -1,16 +1,15 @@
-import  React, {useState} from 'react';
-//import { useState } from 'react';
-import Layout from '../components/Layout';
+import * as React from 'react';
+import { useState } from 'react'
+import Layout from '../../components/Layout';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import Nft from '../components/Nft'
-//import { myFundraisers } from './myFundraisersData'
-import { data } from '../components/data'
-import { nftData } from '../components/nftData'
-import FundraiserCard from '../components/FundraiserCard'
+import Nft from '../../components/Nft'
+import { myFundraisers } from '../myFundraisersData'
+import { nftData } from '../../components/nftData'
+import FundraiserCard from '../../components/FundraiserCard'
 import Link from "next/link"
 
 
@@ -55,7 +54,7 @@ function a11yProps(index: number) {
   };
 
 
-  const myFundraiserCardElems = data.map(item => {
+  const myFundraiserCardElems = myFundraisers.map(item => {
     if (item.isOpen) {
       return (
         <Link  href="/account/[id]" as={`/account/${item.id}`}>
@@ -70,12 +69,13 @@ function a11yProps(index: number) {
             currentRaised={item?.currentRaised}
             isOpen={item?.isOpen}
           />
+
         </Link>
       )
     }
   })
 
-  const fundraiserHistoryCardElems = data.map(item => {
+  const fundraiserHistoryCardElems = myFundraisers.map(item => {
     if (!item.isOpen) {
       return (
         <Link  href="/account/[id]" as={`/account/${item.id}`}>
@@ -134,6 +134,7 @@ function a11yProps(index: number) {
         <div className="flex justify-around mt-8">
               <div>
                   <h2 className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">Fundraiser History</h2>
+
                   <div className="flex flex-wrap mb-16">
                       {fundraiserHistoryCardElems}
                   </div>
@@ -145,6 +146,7 @@ function a11yProps(index: number) {
         <div className="flex justify-around mt-8">
           <div>
               <h2 className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">NFT Badges</h2>
+
               <div className="flex flex-wrap mb-16">
                   {nftBadgeElems}
               </div>
