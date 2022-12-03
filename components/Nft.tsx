@@ -3,8 +3,12 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal'
 
+interface Props {
+  img:string;
+  name: string;
+}
 
-export default function Nft (props) {
+const Nft:React.FC<Props> =  ({img, name}) => {
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -27,8 +31,8 @@ export default function Nft (props) {
 
     return (
         <div>
-        <div className="flex justify-around mr-4 cursor-pointer">
-            <img onClick={handleOpen} className="h-[12.5rem] w-[12.5rem] my-2 rounded-full " src={props.img}/>
+        <div className="flex justify-between mr-4 cursor-pointer">
+          <img onClick={handleOpen} className="h-[9rem] w-[9rem] md:h-[10em] md:w-[10em] xl:h-[12em] xl:w-[12em] my-2 rounded-full " src={img}/>
         </div>
 
         <div>
@@ -39,11 +43,11 @@ export default function Nft (props) {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-                <div className="flex justify-around">
-                    <img className="h-[12.5rem] w-[12.5rem] my-2 rounded-full " src={props.img}/>
-                </div>
+              <div className="flex justify-around">
+                <img className="h-[12.5rem] w-[12.5rem] my-2 rounded-full " src={img}/>
+              </div>
               <Typography id="modal-modal-title" variant="h6" component="h2" className="font-[Circular] text-center" sx={{ mt: 4 }}>
-                {props.name}
+                {name}
               </Typography>
               <div className="flex justify-around mt-8">
                 <button className="text-[1rem] font-semibold bg-[#0F8E4B] text-white px-[1rem] py-[.5rem] rounded-[5px] self-start">Mint Nft</button>
@@ -54,3 +58,5 @@ export default function Nft (props) {
       </div>
     )
 }
+
+export default Nft

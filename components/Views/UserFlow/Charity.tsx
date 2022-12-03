@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../../Store/hooks";
+import { updateCharity } from "../../../Store/slice";
 import Amount from "./Amount";
 import Owner from "./Owner";
 
@@ -27,6 +29,7 @@ const charityBanners = [
 ]
 
 const Charity = () => {
+  const dispatch = useAppDispatch();
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
   const [displayAmount, setDisplayAmount] = useState<boolean>(false);
@@ -42,7 +45,8 @@ const Charity = () => {
    }
 
   const nextFlow = (event:any) => {
-    console.log(charity)
+    //console.log(charity)
+    dispatch(updateCharity(charity))
     setDisplayCurrentView(false);
     setDisplayAmount(true);
    }
@@ -85,18 +89,15 @@ const Charity = () => {
           className="back border-2 py-2 px-4 rounded-md font-medium hover:bg-gray-400  hover:text-white">
             Back
         </button>
-
-        <button 
+        {charity !== "" && <button 
           onClick={nextFlow}
           className="continue py-2 px-4 rounded-md font-medium bg-[#0F8E4B] text-white hover:text-green-100">
             Continue
-          </button>
+          </button> }
         </div>
       </article>}
-
       {displayAmount && <Amount/>}
     </div>
-
    )
  }
    

@@ -61,7 +61,7 @@ const Header = () => {
           }
         </ul>
         <ul className=' mobile_account md:hidden'>
-          <li className='mobile_account   cursor-pointer'>
+          <li className='cursor-pointer'>
             <MobileHeader/>
           </li>
         </ul>

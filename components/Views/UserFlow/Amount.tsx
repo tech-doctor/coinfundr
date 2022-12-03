@@ -1,11 +1,14 @@
 import  React, {useState} from 'react';
+import { useAppDispatch } from '../../../Store/hooks';
+import { updateAmount } from '../../../Store/slice';
 import FundraiserField from './FundraiserField';
 import Owner from './Owner';
 
 
 const Amount = () => {
+  const dispatch = useAppDispatch();
   const [isConnected, setIsConnected] = useState<boolean>(true);
-  const [value, setValue] = useState<string>('$');
+  const [value, setValue] = useState<number| undefined>();
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
   const [displayField, setDisplayField] = useState<boolean>(false);
@@ -16,17 +19,13 @@ const Amount = () => {
 
   const handleSubmit = (event:any) => {
    event.preventDefault();
-    console.log(value)
-    if(value !== ""){
+    if(value !== undefined){
       setDisplayCurrentView(false);
       setDisplayField(true);
+      dispatch(updateAmount(value));
     }
+    
   }
-
-  //const data = new Object()
-
-  
-  
   return(
     <div>
       {displayOwner && <Owner/>}

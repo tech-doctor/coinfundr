@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useAppDispatch } from "../../../Store/hooks";
+import { updateOwner } from "../../../Store/slice";
 import Reason from "./Reason";
 import Amount from "./Amount";
 import Charity from "./Charity";
@@ -15,6 +17,7 @@ const owners = [
 ]
 
 const Owner = () => {
+  const dispatch = useAppDispatch();
   const [charity, setCharity] = useState(false);
   const [selectCharity, setSelectCharity] = useState(false);
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true);
@@ -41,7 +44,7 @@ const Owner = () => {
   }
 
   const nextFlow = (event:any) => {
-    console.log(owner)
+    dispatch(updateOwner(owner))
     if(charity === true){
       setSelectCharity(true)
     }
@@ -87,11 +90,11 @@ const Owner = () => {
           className="back border-2 py-2 px-4 rounded-md font-medium hover:bg-gray-400  hover:text-white">
             Back
           </button>
-          <button 
+          {owner !== "" && <button 
            onClick={nextFlow}
           className="continue py-2 px-4 rounded-md font-medium bg-[#0F8E4B] text-white hover:text-green-100">
             Continue
-          </button>
+          </button>}
         </div>
       </article>}
       {selectCharity &&  <Charity/>}

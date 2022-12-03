@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
+import Layout from './Layout';
 import {useState} from 'react'
 import { LinearProgress } from '@mui/material';
-import { data } from '../components/data'
+import { data } from './data'
 import Link from "next/link"
-import SearchInput from '../components/SearchInput'
+import SearchInput from './SearchInput'
 
 
 const  Search = () => {

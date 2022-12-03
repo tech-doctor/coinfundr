@@ -1,40 +1,47 @@
-import Layout from '../../components/Layout'
-//import { LinearProgress } from '@mui/material'
-import { data } from '../../components/data'
-//import { data } from '../data'
-import FundraiserDetailPage from '../../components/FundraiserDetailPage'
-
-export default function FundraiserDetail({ id }) {
-
-  let detailPage = data.find(item => item.id === Number(id))
-
-  const detailPageElems = [detailPage].map(item => (
-    <FundraiserDetailPage
-      key={item?.id}
-      id={item?.id}
-      name={item?.name}
-      img={item?.imgTwo}
-      nft={item?.nft} 
-      organiser={item?.organiser}
-      goal={item?.goal}
-      tag={item?.tag}
-      description={item?.description}
-      donations={item?.donations}
-      currentRaised={item?.currentRaised}
-      page={'charities'}
-    />
-  ))
+import Layout from '../../components/Layout';
+import FundraiserDetailPage from '../../components/FundraiserDetailPage';
+import React from 'react';
+import { NextPage } from 'next';
 
 
+const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
+
+interface Props {
+  data:any;
+}
+const  FundraiserDetail:NextPage<Props> = ({ data }) => {
+  //console.log(data)
+  const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName, fundraiserName, reasonForFunding}} = data
   return  (
     <Layout
       title='Charities Fundraiser'
     >
-      {detailPageElems}
+      <FundraiserDetailPage
+      name={fundraiserName}
+      img={imageLink}
+      firstName = {firstName}
+      lastName = {lastName}
+      goal={amount}
+      tag={reason}
+      description={reasonForFunding}
+      donations={donations}
+      currentRaised={currentRaised}
+      page={'charities'}
+    />
     </Layout>
   )
 }
-  
-  FundraiserDetail.getInitialProps = ({ query: { id } }) => {
-    return { id }
+
+export async function getServerSideProps(context:any) {
+  const id = context.params.id
+  const res = await fetch(`${BASE_URL}/api/getCharity/${id}`)
+  const data = await res.json()
+  return {
+    props: {
+      data,
+    },
+
   }
+}
+
+export default  FundraiserDetail;

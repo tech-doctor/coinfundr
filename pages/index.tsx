@@ -5,10 +5,34 @@ import Owner from '../components/Views/UserFlow/Owner';
 import Amount from '../components/Views/UserFlow/Amount';
 import FundraiserField from '../components/Views/UserFlow/FundraiserField';
 import FundraiserSuccess from '../components/Views/UserFlow/FundraiserSuccess';
-import {app, storage} from '../firebase/clientApp';
+import {app, storage, db}  from '../firebase/clientApp';
+//import firebase from "firebase/app"
+import { getDocs, collection } from "firebase/firestore"; 
+import { v4 as uuidv4 } from "uuid";
+
 
 const  Home = () => {
- console.log(storage)
+ // const func  = async () => {
+    // try {
+    //   const docRef = await addDoc(collection(db, "General"), {
+    //     first: "Alan",
+    //     middle: "Mathison",
+    //     last: "Turing",
+    //     born: 1912
+    //   });
+    
+    //   console.log("Document written with ID: ", docRef.id);
+    // } catch (e) {
+    //   console.error("Error adding document: ", e);
+    // }  
+  //   const querySnapshot = await getDocs(collection(db, "General"));
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.data()}`);
+  //   });
+  // }
+
+   //func()
+   //console.log(uuidv4(), uuidv4())
   return (
     <Layout
     title='Home'

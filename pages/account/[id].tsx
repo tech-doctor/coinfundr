@@ -1,8 +1,14 @@
 import Layout from '../../components/Layout'
-import { data } from '../data'
+//import { data } from '../data'
+import {data} from "../../components/data"
 import FundraiserDetailPage from '../../components/FundraiserDetailPage'
+import { NextPage } from 'next'
 
-export default function FundraiserDetail({ id }) {
+
+interface Props {
+  id: any;
+}
+const  FundraiserDetail:NextPage<Props> = ({ id }) => {
 
   let detailPage = data.find(item => item.id === Number(id))
 
@@ -20,7 +26,7 @@ export default function FundraiserDetail({ id }) {
       donations={item?.donations}
       currentRaised={item?.currentRaised}
       page={'account'}
-      isOpen={item?.isOpen}
+      //isOpen={item?.isOpen}
     />
   ))
 
@@ -32,6 +38,8 @@ export default function FundraiserDetail({ id }) {
     </Layout>
   )
 }
+
+export default FundraiserDetail;
   
   FundraiserDetail.getInitialProps = ({ query: { id } }) => {
     return { id }

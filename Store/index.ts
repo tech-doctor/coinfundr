@@ -6,13 +6,11 @@ import myReducer from './slice';
 export const store = configureStore({
   reducer: {
     root: myReducer,
-    // [currentAddress.reducerPath]: currentAddress.reducer,
   },
   //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(currentAddress.middleware)
 });
 
 setupListeners(store.dispatch);
-
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType <typeof store.getState>;

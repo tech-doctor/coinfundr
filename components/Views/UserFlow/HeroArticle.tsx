@@ -1,10 +1,17 @@
 import {useState} from 'react';
 import Reason from './Reason';
+import axios from 'axios';
+import { sendUserFlow } from '../../../utils/db/fetchData';
+import { send } from 'process';
+
+
+const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 const HeroArticle = () => {
   const [displayReasonComponent, setDisplayReasonComponent] = useState<boolean>(false)
   const handleClick = () =>{
-    setDisplayReasonComponent(!displayReasonComponent)
+    setDisplayReasonComponent(!displayReasonComponent);
+    //sendUserFlow()
   }
 
   return(

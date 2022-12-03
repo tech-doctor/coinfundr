@@ -1,9 +1,13 @@
 import Layout from '../../components/Layout'
 import { LinearProgress } from '@mui/material'
 import { data } from '../../components/data'
+import { NextPage } from 'next'
 
-export default function FundraiserDetail({ id }) {
-    return  
+interface Props {
+  id:any
+}
+const FundraiserDetail:NextPage<Props> = ({ id }) => {
+    return  (
     <Layout
     title='Popular Fundraisers'
   ><div className="flex justify-around">
@@ -76,7 +80,10 @@ export default function FundraiserDetail({ id }) {
     </div>
   </div> 
   </Layout>
+    )
   }
+
+  export default  FundraiserDetail
   
   FundraiserDetail.getInitialProps = ({ query: { id } }) => {
     return { id }

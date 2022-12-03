@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { useState } from 'react'
 import Layout from '../../components/Layout';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-import Nft from '../../components/Nft'
-import { myFundraisers } from '../myFundraisersData'
-import { nftData } from '../../components/nftData'
-import FundraiserCard from '../../components/FundraiserCard'
-import Link from "next/link"
+import Nft from '../../components/Nft';
+import { myFundraisers } from '../../components/myFundraisersData';
+import { nftData } from '../../components/nftData';
+import FundraiserCard from '../../components/FundraiserCard';
+import Link from "next/link";
 
 
 interface TabPanelProps {
@@ -32,7 +29,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -52,57 +49,61 @@ function a11yProps(index: number) {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
+  
 
   const myFundraiserCardElems = myFundraisers.map(item => {
     if (item.isOpen) {
       return (
-        <Link  href="/account/[id]" as={`/account/${item.id}`}>
-          <FundraiserCard 
-            key={item?.id}
-            id={item?.id}
-            name={item?.name}
-            img={item?.img}
-            organiser={item?.organiser}
-            goal={item?.goal}
-            donations={item?.donations}
-            currentRaised={item?.currentRaised}
-            isOpen={item?.isOpen}
-          />
-
-        </Link>
+        <React.Fragment key={item.id}>
+          <Link href="/account/[id]" as={`/account/${item.id}`}>
+            <FundraiserCard 
+              //id={item?.id}
+              name={item?.name}
+              img={item?.img}
+              organiser={item?.organiser}
+              goal={item?.goal}
+              donations={item?.donations}
+              currentRaised={item?.currentRaised}
+            />
+          </Link>
+        </React.Fragment>
       )
     }
   })
 
+
   const fundraiserHistoryCardElems = myFundraisers.map(item => {
     if (!item.isOpen) {
       return (
-        <Link  href="/account/[id]" as={`/account/${item.id}`}>
-          <FundraiserCard 
-            key={item?.id}
-            id={item?.id}
-            name={item?.name}
-            img={item?.img}
-            organiser={item?.organiser}
-            goal={item?.goal}
-            donations={item?.donations}
-            currentRaised={item?.currentRaised}
-            isOpen={item?.isOpen}
-          />
-
-        </Link>
+          <React.Fragment key = {item.id}>
+            <Link  href="/account/[id]" as={`/account/${item.id}`}>
+            <FundraiserCard 
+              //id={item?.id}
+              name={item?.name}
+              img={item?.img}
+              organiser={item?.organiser}
+              goal={item?.goal}
+              donations={item?.donations}
+              currentRaised={item?.currentRaised}
+            />
+             </Link>
+          </React.Fragment>
+       
       )
     }
   })
 
   const nftBadgeElems = nftData.map(item  => (
+    <React.Fragment
+    key = {item?.id}
+    >
     <Nft 
-      key={item?.id}
+      //key={item?.id}
       img={item?.img}
       name={item?.name}
-
     />
+    </React.Fragment>
+    
   ))
 
   return (
@@ -120,38 +121,34 @@ function a11yProps(index: number) {
       </Box>
       <TabPanel value={value} index={0}>
         <div className="flex justify-around mt-8">
-              <div>
-                  <h2 className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">My Fundraisers</h2>
+          <div>
+              <div className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">My Fundraisers</div>
 
-                  <div className="flex flex-wrap mb-16">
-                      {myFundraiserCardElems}
-                  </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+                  {myFundraiserCardElems}
               </div>
-
+          </div>
           </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="flex justify-around mt-8">
-              <div>
-                  <h2 className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">Fundraiser History</h2>
-
-                  <div className="flex flex-wrap mb-16">
-                      {fundraiserHistoryCardElems}
-                  </div>
-              </div>
-
+          <div>
+          <div className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">Fundraiser History</div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+                {fundraiserHistoryCardElems}
+            </div>
+          </div>
+            
           </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <div className="flex justify-around mt-8">
           <div>
-              <h2 className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">NFT Badges</h2>
-
-              <div className="flex flex-wrap mb-16">
-                  {nftBadgeElems}
-              </div>
+            <div className="text-[1.2rem] mb-2 font-bold text-[#1F1F1F]">NFT Badges</div>
+            <div className="grid xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+              {nftBadgeElems}
+            </div>  
           </div>
-
         </div>
       </TabPanel>
     </Box>

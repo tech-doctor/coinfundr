@@ -1,24 +1,34 @@
 import  React, {useState, useRef} from 'react';
-import Amount from './Amount';
-import FundraiserSuccess from './FundraiserSuccess';
+import { v4 as uuidv4 } from "uuid";
 import { storage } from '../../../firebase/clientApp';
 import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
+import { useAppDispatch, useAppSelector } from '../../../Store/hooks';
+import { updateImageLink, updateForm } from '../../../Store/slice';
+import Amount from './Amount';
+import FundraiserSuccess from './FundraiserSuccess';
+import { sendUserFlow } from '../../../utils/db/fetchData';
+import axios from 'axios';
+
+const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 const FundraiserField = () => {
+  const dispatch = useAppDispatch();
   const uploadRef = useRef<any>(null);
+  const imageSrc:any = useAppSelector(state => state.root.imageLink)
+  const userFlowData:any = useAppSelector(state => state.root)
+  const form = useAppSelector(state => state.root.form.firstName)
   const [fields, setFields]  = useState<any>({
     firstName: "",
     lastName: "",
     fundraiserName: "",
-    reason: "",
+    reasonForFund: "",
   });
 
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
   const [displayAmount, setDisplayAmount] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [fileMessage, setFileMessage] = useState<string>("");
-  const [imageSrc, setImageSrc] = useState<string | any>(null);
 
 
   const handleUploadClick = (event:any) => {
@@ -31,15 +41,14 @@ const FundraiserField = () => {
 
   const changeFile = (event:any) => {
     if(uploadRef.current !== null) {
-      setImageSrc("loading");
+      dispatch(updateImageLink('loading'))
       const selectedFile = uploadRef.current.files[0]
       const imageRef = ref(storage, `images/${selectedFile.name + uuidv4()}`);
       uploadBytes(imageRef, selectedFile)
       .then((snapshot) => {
         getDownloadURL(snapshot.ref)
         .then((url) => {
-          console.log(url)
-          setImageSrc(url)
+          dispatch(updateImageLink(url))
         })
       })
     }
@@ -55,16 +64,27 @@ const FundraiserField = () => {
 
   const handleSubmit = (event:any) => {
     event.preventDefault();
-    setDisplayCurrentView(false)
-    setDisplaySuccess(true)
     if(uploadRef.current !== null && uploadRef.current.files.length == 0){
       setFileMessage("No file selected. Select a file before you proceed");
     }
-    console.log(uploadRef.current)
+    dispatch(updateForm(fields));
+  }
+
+  const sendData = () => {
+    setLoading(true)
+    axios.post(`${BASE_URL}/api/postUserFlow/${uuidv4()}`, userFlowData)
+      .then(function (response) {
+        console.log(response);
+    setDisplayCurrentView(false)
+    setDisplaySuccess(true)
+      })
+    .catch((error) => {
+       console.log(error)
+    })
   }
 
 
-  const {firstName, lastName, fundraiserName, reason} = fields
+  const {firstName, lastName, fundraiserName, reasonForFund} = fields
 
   return(
     <div>
@@ -114,8 +134,8 @@ const FundraiserField = () => {
             placeholder= 'Why are your creating a fundraiser?'
             cols= {50}
             rows= {4}
-            name = "reason"
-            value = {reason}
+            name = "reasonForFund"
+            value = {reasonForFund}
             required
             />
             <div className="file_upload my-9">
@@ -153,10 +173,17 @@ const FundraiserField = () => {
             type='button' className="back border-2 py-2 px-4 rounded-md font-medium hover:bg-gray-400 hover:text-white">
               Back
             </button>
-            <button 
+            {form === "" ? <button 
             type='submit' className="confirm py-2 px-4 rounded-md font-medium bg-[#0F8E4B] text-white hover:text-green-100">
-              Confirm
-            </button>
+             {/* {!loading? 'Confirm': 'Loading...'} */}
+             Submit
+            </button>:
+
+              <button 
+            onClick={sendData}
+            type='button' className="confirm py-2 px-4 rounded-md font-medium bg-[#0F8E4B] text-white hover:text-green-100">
+             {!loading? 'Confirm': 'Loading...'}
+            </button>}
           </div>
         </form> 
       </div>
