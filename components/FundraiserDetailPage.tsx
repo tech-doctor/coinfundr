@@ -171,7 +171,7 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
           <img className="h-[12.5rem] w-[12.5rem] my-2 rounded-full " src={nft}/>
         </div>
       <Typography id="modal-modal-title" variant="h6" component="h2" className="font-[Circular] text-center" sx={{ mt: 4 }}>
-          Congratulations! You've just recieved an NFT Badge
+          Congratulations! You&apos;ve just recieved an NFT Badge
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 1 }} className="font-[Circular] text-center">
           Check your Nfts in your Account page

@@ -7,7 +7,7 @@ const FundraiserSuccess = () => {
   return(
     <div className="success_container md:max-w-[70%] md:mx-auto lg:mx-0">
       <h1 className="title text-[#1F1F1F] font-medium mt-3">
-        Congratulation! You've successfully created your fundraiser.
+        Congratulation! You&apos;ve successfully created your fundraiser.
       </h1>
       <div className="button mt-10">
         <Link href={"/account"}>

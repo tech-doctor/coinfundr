@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../../utils/db';
 
 
-export default async (req:NextApiRequest, res:NextApiResponse) => {
+export default  async (req:NextApiRequest, res:NextApiResponse) => {
   const id:any = req.query.id;
 
   try{
