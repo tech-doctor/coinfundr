@@ -3,7 +3,10 @@ import { LinearProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+import userFundmeabi from './../constantabi/configFundme.json'
+import ethers from 'ethers'
+import qualityEducation from './../constantabi/qualityeducation.json'
 
 interface Props {
   id?:number |  undefined;
@@ -22,9 +25,11 @@ interface Props {
 
 
 const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, description, donations, currentRaised, page, firstName, lastName}) => {
-
+    const addressfund ='0x79d168071fa13d324bd806e0e3a490ac2e33f85e'
+    const addressnft ='0x5A6E5b46eBaE183A1CB458030a082ae81Cf2CfD5'
     const [redeemNft, setRedeemNft] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    const [value, setValue] =useState('')
 
     const handleOpen = () => setRedeemNft(true);
     const handleClose = () => setRedeemNft(false);
@@ -44,6 +49,22 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
       boxShadow: 24,
       p: 4,
     }
+
+    
+
+    const { config } = usePrepareContractWrite({
+        address: addressfund,
+        abi:userFundmeabi,
+        functionName:'fund',
+        chainId:80001,
+        overrides: {
+            value: ethers.utils.parseEther(value)
+        }
+    })
+
+    const { data, isLoading, isSuccess, write } = useContractWrite(config)
+    
+    
 
 
     return(
@@ -82,7 +103,7 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
                               </div>
                           </div>
                           {page === 'individuals' ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">Donate Now</button>
-                          : (page === 'charities' ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">Donate Now</button>
+                          : (page === 'charities' ? <button onClick={() => write()} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">Donate Now</button>
                           : (isOpen && <button className="text-[1rem] font-bold bg-[#BA181B] text-[#FFFFFF] hover:bg-[#6A040F] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">Close Fundraiser</button>)
                           )}
                           <h5 className="font-bold text-[#5E6364]">&bull; {tag}</h5>
@@ -137,9 +158,16 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
               <div className="flex justify-around mt-8">
                   <input 
                       type="number"
+                      onChange={(e) => setValue(e.target.value)}
                       className="input border w-1/2 py-1.5 px-3 rounded-full outline-none"
                       required
                   />
+                  {!isSuccess && (
+                  <button>
+                    Mint
+
+                  </button>
+                  )}
                   {page === 'individuals' ? <button className="text-[1rem] font-semibold bg-[#FFC300] text-white px-[1rem] py-[.5rem] rounded-[5px] self-start">Donate</button>
                   : <button onClick={handleOpen} className="text-[1rem] font-semibold bg-[#FFC300] text-white px-[1rem] py-[.5rem] rounded-[5px] self-start">Donate</button>
                   }

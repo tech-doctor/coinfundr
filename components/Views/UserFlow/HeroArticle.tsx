@@ -3,12 +3,18 @@ import Reason from './Reason';
 import axios from 'axios';
 import { sendUserFlow } from '../../../utils/db/fetchData';
 import { send } from 'process';
+import { useConnect, useAccount } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected'
 
 
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 const HeroArticle = () => {
+  const { address, isConnected } = useAccount()
   const [displayReasonComponent, setDisplayReasonComponent] = useState<boolean>(false)
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
   const handleClick = () =>{
     setDisplayReasonComponent(!displayReasonComponent);
     //sendUserFlow()
@@ -16,7 +22,8 @@ const HeroArticle = () => {
 
   return(
     <div>
-      {!displayReasonComponent ? <article className="hero-details text-[#1F1F1F]">
+      {!isConnected ?
+       <article className="hero-details text-[#1F1F1F]">
         <h1 className='text-[42px] xl:text-6xl 2xl:text-8xl  font-bold leading-tight'>Together, we can change the 
         <div> 
         World
@@ -27,7 +34,7 @@ const HeroArticle = () => {
           With one-quarter of our global team dedicated to trust and safety, we’ve successfully managed fundraisers worldwide for more than a decade.
         </p>
         <button 
-        onClick = {handleClick}
+        onClick = { () => connect()}
         className='bg-[#1F1F1F] text-white font-medium rounded-[5px]  py-2 px-5 sm:py-2.5 sm:px-6 2xl:py-3 2xl:px-7 cursor-pointer hover:scale-95'>Start a Fundraiser.</button>
     </article> : <Reason/>}
     </div>

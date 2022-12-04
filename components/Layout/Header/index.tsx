@@ -5,21 +5,16 @@ import { updateWalletStatus } from '../../../Store/slice';
 import ActiveLink from './activeLink';
 import AccountComponent from '../../AccountHeader';
 import MobileHeader from './mobile';
-
+import { useConnect, useAccount, useEnsName } from 'wagmi' 
+import { InjectedConnector } from 'wagmi/connectors/injected'
 
 const Header = () => {
-  const dispatch = useAppDispatch();
-   const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
-  const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
-
-  const connectWallet = () => {
-    dispatch(updateWalletStatus(true))
-    setDisplayPopup(true);
-    setTimeout(() => {
-      setDisplayPopup(false);
-    }, 2000)
-  }
-
+  const { address, isConnected } = useAccount()
+  const { data: ensName } = useEnsName({ address })
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+  
   return (
     <div className=' px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 2xl:px-14 shadow-md md:shadow-none pb-1 md:pb-0'>
       <div className='flex items-center  justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
@@ -47,17 +42,15 @@ const Header = () => {
               Charities
            </ActiveLink>
           </li>
-          {!isConnected?
+          {!isConnected ?
             <li 
-            onClick={connectWallet}
+            onClick={() => connect()}
             className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer
             hover:bg-black hover:text-white
             ">
               Connect MetaMask  Wallet
             </li> : 
-          <AccountComponent
-            displayPopUp = {displayPopUp}
-          />
+          <AccountComponent displayPopUp={false} />
           }
         </ul>
         <ul className=' mobile_account md:hidden'>
