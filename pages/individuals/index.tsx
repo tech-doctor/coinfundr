@@ -1,11 +1,10 @@
 import Layout from '../../components/Layout';
-import FundraiserCard from '../../components/FundraiserCard'
-//import { data } from '../../components/data'
+import FundraiserCard from '../../components/FundraiserCard';
 import Link from 'next/link';
 import React from 'react';
 import { NextPage } from 'next';
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
+const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 
 interface Prop {
   data:any[]

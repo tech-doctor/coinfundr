@@ -1,17 +1,47 @@
-import  React, {useState} from 'react';
-import { useAppDispatch } from '../../../Store/hooks';
-import { updateAmount } from '../../../Store/slice';
+import  React, {useState, useEffect} from 'react';
+import { useAppDispatch, useAppSelector } from '../../../Store/hooks';
+import { updateAmount, updateImageLink, updateWalletAddress, updateWalletStatus } from '../../../Store/slice';
+import { connectWallet, getCurrentwalletConnected } from '../../../utils/Interact';
+import { getCharityDetails } from '../charityDetails';
 import FundraiserField from './FundraiserField';
 import Owner from './Owner';
 
 
 const Amount = () => {
   const dispatch = useAppDispatch();
-  const [isConnected, setIsConnected] = useState<boolean>(true);
+  const charity = useAppSelector(state => state.root.charity);
+  //const [isConnected, setIsConnected] = useState<boolean>(true);
+  const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected) 
   const [value, setValue] = useState<number| undefined>();
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true)
   const [displayOwner, setDisplayOwner] = useState<boolean>(false);
   const [displayField, setDisplayField] = useState<boolean>(false);
+
+
+ useEffect(() => {
+    if(charity !== null){
+      dispatch(updateImageLink(getCharityDetails(charity)?.imageLink))
+    }
+ },[])
+
+ useEffect (() => {
+  const getWalletStatus =  async() => {
+  const connect  = await getCurrentwalletConnected();
+    dispatch(updateWalletAddress(connect.address))
+    if(connect.status === 200){
+      dispatch(updateWalletStatus(true))
+    }
+  }
+  getWalletStatus()
+},[])
+
+ const connectWalletFunc = async() => {
+  const connect  = await connectWallet();
+  dispatch(updateWalletAddress(connect.address))
+ if(connect.status === 200){
+  dispatch(updateWalletStatus(true))
+ }
+}
 
   const handleChange = (event:any) => {
     setValue(event.target.value);
@@ -64,6 +94,7 @@ const Amount = () => {
               Continue
             </button>: <button
             type='button'
+            onClick={connectWalletFunc}
              className="connect_wallet py-2 px-4 rounded-md font-medium bg-[#BA181B] text-white hover:text-green-100">
               Connect Wallet
             </button>}

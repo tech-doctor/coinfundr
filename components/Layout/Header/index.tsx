@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppSelector, useAppDispatch } from '../../../Store/hooks';
-import { updateWalletStatus } from '../../../Store/slice';
+import { updateWalletAddress, updateWalletStatus } from '../../../Store/slice';
+import { connectWallet, getCurrentwalletConnected } from '../../../utils/Interact';
 import ActiveLink from './activeLink';
 import AccountComponent from '../../AccountHeader';
 import MobileHeader from './mobile';
@@ -9,15 +11,33 @@ import MobileHeader from './mobile';
 
 const Header = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
    const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
   const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
 
-  const connectWallet = () => {
+
+  useEffect (() => {
+    const getWalletStatus =  async() => {
+    const connect  = await getCurrentwalletConnected();
+      dispatch(updateWalletAddress(connect.address))
+      if(connect.status === 200){
+        dispatch(updateWalletStatus(true))
+      }
+    }
+    getWalletStatus()
+  },[])
+
+  const connectWalletFunc = async() => {
+    const connect  = await connectWallet();
+    //dispatch(updateWalletStatus(true))
+    dispatch(updateWalletAddress(connect.address))
+   if(connect.status === 200){
     dispatch(updateWalletStatus(true))
     setDisplayPopup(true);
+   }
     setTimeout(() => {
       setDisplayPopup(false);
-    }, 2000)
+    }, 3000)
   }
 
   return (
@@ -25,7 +45,11 @@ const Header = () => {
       <div className='flex items-center  justify-between py-2 md:py-0 md:my-3 lg:my-4 xl:my-5'>
         <div className="left">
           <ActiveLink href = {'/'}>
-            <img  className="w-32" src='/logo.png' alt='Coinfundr-logo'/>
+            <img 
+            onClick={() => {
+              router.reload()
+            }}
+             className="w-32" src='/logo.png' alt='Coinfundr-logo'/>
           </ActiveLink>  
         </div>
         <ul className = "flex items-center text-gray-600 hidden md:flex">
@@ -49,7 +73,7 @@ const Header = () => {
           </li>
           {!isConnected?
             <li 
-            onClick={connectWallet}
+            onClick={connectWalletFunc}
             className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer
             hover:bg-black hover:text-white
             ">

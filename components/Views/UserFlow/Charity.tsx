@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../../Store/hooks";
 import { updateCharity } from "../../../Store/slice";
 import Amount from "./Amount";
@@ -7,24 +7,24 @@ import Owner from "./Owner";
 
 const charityBanners = [
   {
-    id: 'Human-right',
-    src: '/human-right.png',
-    alt: 'Human right charity banner'
+    id: 'chess-in-slum',
+    src: '/chess-in-slum.png',
+    alt: 'Chess in Slum charity banner'
+  },
+  {
+    id: 'lagos-food-bank',
+    src: '/lagos-food-bank.png',
+    alt: 'Lagos food bank charity banner'
   },
   { 
-    id: 'Red-cross',
-    src: '/red-cross.png',
-    alt: 'Red cross charity banner'
+    id: 'nigerian-red-cross',
+    src: '/nigerian-red-cross.png',
+    alt: 'Nigerian red cross charity banner'
   },
   {
-    id: 'ADL',
-    src: '/ADL.png',
-    alt: 'ADL charity banner'
-  },
-  {
-    id: 'Amnesty',
-    src: '/amnesty.png',
-    alt: 'Amnesty Charity Banner'
+    id: 'kokun-foundation',
+    src: '/kokun-foundation.png',
+    alt: 'Kokun foundation Charity Banner'
   }
 ]
 
@@ -37,15 +37,16 @@ const Charity = () => {
   const [charity, setCharity] = useState<string>("")
 
 
+  // useEffect(() => {
+  //   dispatch(updateCharity(null))
+  // },[])
 
   const selectBanner = (id:string) => {
     setSelectedId(id)
     setCharity(id)
-    //console.log(id)
    }
 
   const nextFlow = (event:any) => {
-    //console.log(charity)
     dispatch(updateCharity(charity))
     setDisplayCurrentView(false);
     setDisplayAmount(true);
@@ -67,7 +68,6 @@ const Charity = () => {
           {charityBanners.map((banner, index) => {
             const {id, src, alt} = banner;
              const activeClass = selectedId === id ? 'border-2 border-[#6BC683]' : ''
-            
             return(
               <img 
               onClick={() => {
@@ -75,7 +75,7 @@ const Charity = () => {
               }}
               id = {id}
               key = {id}
-              className={`w-full  sm:h-[210px] shadow-sm my-1 mr-3 rounded-[8px] hover:border-2 hover:border-[#6BC683] cursor-pointer ${activeClass}`}
+              className={`  w-full shadow-sm my-1 mr-3 rounded-[8px] hover:border-2 hover:border-[#6BC683] cursor-pointer ${activeClass}`}
               src= {src} alt={alt}/>
             )
           })}

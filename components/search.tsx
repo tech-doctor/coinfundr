@@ -3,7 +3,7 @@ import {useState} from 'react'
 import { LinearProgress } from '@mui/material';
 import { data } from './data'
 import Link from "next/link"
-import SearchInput from './SearchInput'
+import SearchInput from './Views/search/SearchInput'
 
 
 const  Search = () => {

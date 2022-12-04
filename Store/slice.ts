@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Props {
   walletIsConnected: boolean;
+  walletAddress: "",
   reason: string;
   owner:string;
   charity: any;
@@ -14,7 +15,8 @@ export interface Props {
 }
 
 const initialState:Props = {
-  walletIsConnected: false,  
+  walletIsConnected: false,
+  walletAddress: "",  
   reason: '',
   owner: '',
   charity: null,
@@ -27,6 +29,7 @@ const initialState:Props = {
     fundraiserName: '',
     reasonForFund: '',
   },
+  //form: null,
   imageLink: null,
 }
 
@@ -34,8 +37,15 @@ export const slice = createSlice ({
   name: 'slice',
   initialState,
   reducers: {
+    // reset: (state, action) => {
+    //  state = initialState
+    // },
+    reset : () => initialState,
     updateWalletStatus: (state, action: PayloadAction<boolean>) => {
       state.walletIsConnected = action.payload;
+    },
+    updateWalletAddress: (state, action: PayloadAction<any>) => {
+      state.walletAddress = action.payload;
     },
     updateReason: (state, action: PayloadAction<string>) => {
       state.reason = action.payload;
@@ -55,6 +65,8 @@ export const slice = createSlice ({
     updateImageLink: (state, action: PayloadAction<any>) => {
       state.imageLink = action.payload;
     }
+
+    
     // updateReason: (state, action: PayloadAction<string>) => {
     //   state.reason = action.payload;
     // },
@@ -64,7 +76,7 @@ export const slice = createSlice ({
   }
 })
 
-export const {updateWalletStatus, updateReason, updateOwner, updateCharity, updateAmount, updateForm, updateImageLink} = slice.actions;
+export const {reset,updateWalletStatus, updateReason, updateOwner, updateCharity, updateAmount, updateForm, updateImageLink, updateWalletAddress} = slice.actions;
 
 export default slice.reducer;
 

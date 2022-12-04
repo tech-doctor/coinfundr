@@ -19,7 +19,6 @@ const Reason = () => {
   const select = (event:any, id:number) => {
     setSelectedIndex(id)
     const {textContent} = event.target;
-    ///console.log(event.target.textContent)
     setReason(textContent);
  }
 

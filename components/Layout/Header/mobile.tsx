@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import { useAppDispatch } from '../../../Store/hooks';
+import { updateWalletAddress, updateWalletStatus } from '../../../Store/slice';
+import { connectWallet } from '../../../utils/Interact';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
@@ -13,10 +16,25 @@ import ActiveLink from './activeLink';
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 const  MobileHeader = () => {
+  const dispatch = useAppDispatch();
   const [state, setState] = useState({
     top: false,
   }); 
   const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected) 
+
+
+  const connectWalletFunc = async() => {
+    const connect  = await connectWallet();
+    //dispatch(updateWalletStatus(true))
+    dispatch(updateWalletAddress(connect.address))
+   if(connect.status === 200){
+    dispatch(updateWalletStatus(true))
+    //setDisplayPopup(true);
+   }
+    // setTimeout(() => {
+    //   setDisplayPopup(false);
+    // }, 4000)
+  }
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -42,6 +60,7 @@ const  MobileHeader = () => {
       )
     }
 
+
   const list = () => (
     <Box
       sx={{ width: 'auto', paddingBottom: '10px' }}
@@ -65,7 +84,10 @@ const  MobileHeader = () => {
               <ListItemText primary={text}/>
             </ListItemButton>
           </ListItem>))}
-          {!isConnected? <div className='bg-[#6D66FB] text-white w-fit mx-3.5 px-2 py-1 text-sm rounded-md cursor-pointer'>
+          {!isConnected? 
+          <div 
+          onClick={connectWalletFunc}
+          className='bg-[#6D66FB] text-white w-fit mx-3.5 px-2 py-1 text-sm rounded-md cursor-pointer'>
           Connect Wallet
         </div>: 
         <ListItem sx = {{color:'#6D66FB', textDecoration: 'underline', cursor:'pointer', width:'fit-content'}}>
@@ -86,6 +108,7 @@ const  MobileHeader = () => {
         />
       </Button>
       <SwipeableDrawer
+      className='md:hidden'
         anchor={'top'}
         open={state.top}
         onClose={toggleDrawer('top', false)}

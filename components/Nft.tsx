@@ -21,7 +21,7 @@ const Nft:React.FC<Props> =  ({img, name}) => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: 1/2,
-      height: 1/2,
+      //height: 1/2,
       bgcolor: 'white',
       borderRadius: '15px',
       boxShadow: 24,
@@ -42,9 +42,12 @@ const Nft:React.FC<Props> =  ({img, name}) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style}>
+            <Box 
+            sx={style}
+            className='w-[90%] sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%]  rounded-lg'
+            >
               <div className="flex justify-around">
-                <img className="h-[12.5rem] w-[12.5rem] my-2 rounded-full " src={img}/>
+                <img className=" h-[10.5rem] w-[10.5rem] sm:h-[12.5rem] sm:w-[12.5rem] my-2 rounded-full " src={img}/>
               </div>
               <Typography id="modal-modal-title" variant="h6" component="h2" className="font-[Circular] text-center" sx={{ mt: 4 }}>
                 {name}

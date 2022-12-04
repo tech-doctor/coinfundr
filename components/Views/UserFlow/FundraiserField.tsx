@@ -1,12 +1,13 @@
-import  React, {useState, useRef} from 'react';
+import  React, {useState, useEffect, useRef} from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { storage } from '../../../firebase/clientApp';
 import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import { useAppDispatch, useAppSelector } from '../../../Store/hooks';
 import { updateImageLink, updateForm } from '../../../Store/slice';
+import { getCharityDetails } from '../charityDetails';
 import Amount from './Amount';
 import FundraiserSuccess from './FundraiserSuccess';
-import { sendUserFlow } from '../../../utils/db/fetchData';
+//import { sendUserFlow } from '../../../utils/db/fetchData';
 import axios from 'axios';
 
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
@@ -16,12 +17,15 @@ const FundraiserField = () => {
   const uploadRef = useRef<any>(null);
   const imageSrc:any = useAppSelector(state => state.root.imageLink)
   const userFlowData:any = useAppSelector(state => state.root)
-  const form = useAppSelector(state => state.root.form.firstName)
+  const form = useAppSelector(state => state.root.form.firstName);
+  const charity = useAppSelector(state => state.root.charity);
+  const walletAddress = useAppSelector(state => state.root.walletAddress);
+
   const [fields, setFields]  = useState<any>({
     firstName: "",
     lastName: "",
-    fundraiserName: "",
-    reasonForFund: "",
+    fundraiserName: charity !== null ?getCharityDetails(charity)?.name: "",
+    reasonForFund: charity !== null ?getCharityDetails(charity)?.details: "",
   });
 
   const [displayCurrentView, setDisplayCurrentView] = useState<boolean>(true);
@@ -34,7 +38,6 @@ const FundraiserField = () => {
   const handleUploadClick = (event:any) => {
     if(uploadRef.current !== null) {
       uploadRef.current.click();
-      console.log(uploadRef.current)
     }
   }
   
@@ -74,7 +77,7 @@ const FundraiserField = () => {
     setLoading(true)
     axios.post(`${BASE_URL}/api/postUserFlow/${uuidv4()}`, userFlowData)
       .then(function (response) {
-        console.log(response);
+        //console.log(response);
     setDisplayCurrentView(false)
     setDisplaySuccess(true)
       })
@@ -119,6 +122,8 @@ const FundraiserField = () => {
             value = {lastName}
             required
             />
+            {charity === null &&
+            <>
             <input 
             onChange={handleChange}
             className='border w-full rounded-md px-1.5 outline-none pb-6 pt-1 placehoder:text-xl mb-3 focus:border-2'
@@ -159,11 +164,14 @@ const FundraiserField = () => {
               <small className='text-red-600 my-1'>Please, Kindly upload an image before you submit
               </small>
               </> : ''}
-            {imageSrc !== null && imageSrc !== 'loading' &&
+            {imageSrc !== null  && imageSrc !== 'loading' &&
              <img 
             className='rounded-md mt-3 w-full'
             src={imageSrc} alt='alt'/> }
             </div>
+            </>
+             }
+   
           <div className="buttons flex justify-between">
             <button 
             onClick={() => {
@@ -175,7 +183,6 @@ const FundraiserField = () => {
             </button>
             {form === "" ? <button 
             type='submit' className="confirm py-2 px-4 rounded-md font-medium bg-[#0F8E4B] text-white hover:text-green-100">
-             {/* {!loading? 'Confirm': 'Loading...'} */}
              Submit
             </button>:
 

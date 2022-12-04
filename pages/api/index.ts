@@ -6,20 +6,6 @@ type Data = {
   name: string
 }
 
-// export default function getData(req: NextApiRequest, res: NextApiResponse) {
-//   //res.status(200).json({ name: 'John Doe' })
-//   if(req.method === 'PUT'){
-//     //run code
-//     //use request.body.name, req.body.id, request.query.id and so on.
-//   }
-
-//   if(req.method !== "GET") {
-//     res.status(500).json({message: 'sorry we only accept GET request'})
-//   }
-  
-//   res.json({hello: 'world', method: req.method});
-// }
-
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   try{
     //const { slug } = req.body;

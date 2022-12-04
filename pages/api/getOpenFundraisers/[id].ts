@@ -2,6 +2,9 @@ export const time = 'hello'// Next.js API route support: https://nextjs.org/docs
 import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../../utils/db';
 
+// type Data = {
+//   name: string
+// }
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   const id:any = req.query.id;
@@ -13,8 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     data
   );
 
-  } 
-  catch (error) {
+  } catch (error) {
     res.status(400).end();
   }
 }

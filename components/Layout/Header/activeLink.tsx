@@ -8,10 +8,8 @@ interface Props {
   
   const ActiveLink:React.FC<Props> = ({children, href}) => {
     const router =  useRouter();
-    const path = router.asPath
-    const style = {
-     color: path === href && path !== '/' ?  'black' : ''
-    }
+    const path = router.asPath;
+    const activeClass = path === href && path !== '/' ? "text-black" : ''
   
     const handleClick = (e:any) => {
       e.preventDefault()
@@ -19,7 +17,7 @@ interface Props {
     }
   
     return (
-      <a href={href} onClick={handleClick} style={style}>
+      <a href={href} onClick={handleClick} className = {`${activeClass}`}>
         {children}
       </a>
     )

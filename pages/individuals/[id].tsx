@@ -10,8 +10,8 @@ interface Props {
   data: any;
 }
 const FundraiserDetail:NextPage<Props> = ({ data }) => {
-
-  const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFunding}} = data;
+//  console.log(data)
+  const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
 
   return  (
     <Layout
@@ -24,7 +24,7 @@ const FundraiserDetail:NextPage<Props> = ({ data }) => {
       lastName = {lastName}
       goal={amount}
       tag={reason}
-      description={reasonForFunding}
+      description={reasonForFund}
       donations={donations}
       currentRaised={currentRaised}
       page={'individuals'}

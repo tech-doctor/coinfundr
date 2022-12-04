@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../../Store/hooks";
-import { updateOwner } from "../../../Store/slice";
+import { updateCharity, updateOwner } from "../../../Store/slice";
 import Reason from "./Reason";
 import Amount from "./Amount";
 import Charity from "./Charity";
@@ -32,13 +32,13 @@ const Owner = () => {
     setSelectedIndex(id)
     const parentElementAccessKey = event.target.parentElement.accessKey;
     const accessKey = event.target.accessKey;
-    console.log(event.target)
     if(parentElementAccessKey == "Charity" || accessKey === "Charity") {
       setCharity(true)
       setOwner("Charity")
     }else{
       setCharity(false)
       setOwner("Self")
+      dispatch(updateCharity(null))
     }
 
   }

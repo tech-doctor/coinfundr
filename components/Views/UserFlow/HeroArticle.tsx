@@ -1,17 +1,18 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import { useAppDispatch } from '../../../Store/hooks';
+import { reset, updateCharity } from '../../../Store/slice';
 import Reason from './Reason';
-import axios from 'axios';
-import { sendUserFlow } from '../../../utils/db/fetchData';
-import { send } from 'process';
-
-
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 const HeroArticle = () => {
+  const dispatch = useAppDispatch();
   const [displayReasonComponent, setDisplayReasonComponent] = useState<boolean>(false)
+  
+  // useEffect(() => {
+  //   dispatch(updateCharity(null))
+  // },[])
+
   const handleClick = () =>{
     setDisplayReasonComponent(!displayReasonComponent);
-    //sendUserFlow()
   }
 
   return(
