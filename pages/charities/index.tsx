@@ -7,13 +7,13 @@ import { NextPage } from 'next';
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 interface Prop {
-  data:any[]
+  data:any
 }
 const  Charities:NextPage<Prop> = ({data}) => {
-  console.log('char')
-  console.log(data)
+  //console.log('char')
+  //console.log(data)
   
-  const fundraiserCardElems = data.map(item => (
+  const fundraiserCardElems = data.map((item:any) => (
     <React.Fragment
       key = {item?.id}
     >

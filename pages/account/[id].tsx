@@ -9,7 +9,7 @@ interface Props {
   data:any;
 }
 
-const  FundraiserDetail:NextPage<Props> = ({ data }) => {
+const  FundraiserAccountDetail:NextPage<Props> = ({ data }) => {
     const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
   return  (
     <Layout
@@ -41,4 +41,4 @@ export async function getServerSideProps(context:any) {
   }
 }
 
-export default FundraiserDetail;
+export default FundraiserAccountDetail;

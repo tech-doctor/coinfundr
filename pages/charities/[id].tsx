@@ -9,8 +9,8 @@ interface Props {
 }
 
 
-const  FundraiserDetail:NextPage<Props> = ({ data }) => {
-  // console.log(data)
+const  FundraiserCharityDetail:NextPage<Props> = ({ data }) => {
+  //console.log(data)
   const {imageLink, amount, reason,donations, charity, currentRaised, form: {firstName, lastName, fundraiserName, reasonForFund}} = data;
   console.log(charity)
    const nftLink = () => {
@@ -60,4 +60,4 @@ export async function getServerSideProps(context:any) {
   }
 }
 
-export default  FundraiserDetail;
+export default  FundraiserCharityDetail;

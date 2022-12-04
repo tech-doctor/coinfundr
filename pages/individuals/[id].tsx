@@ -9,7 +9,7 @@ const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 interface Props {
   data: any;
 }
-const FundraiserDetail:NextPage<Props> = ({ data }) => {
+const FundraiserIndividualDetail:NextPage<Props> = ({ data }) => {
 //  console.log(data)
   const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
 
@@ -45,5 +45,5 @@ export async function getServerSideProps(context:any) {
   }
 }
 
-export default FundraiserDetail;
+export default FundraiserIndividualDetail;
 

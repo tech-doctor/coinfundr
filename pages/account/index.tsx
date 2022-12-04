@@ -10,7 +10,7 @@ import Nft from '../../components/Nft';
 import { nftData } from '../../components/nftData';
 import FundraiserCard from '../../components/FundraiserCard';
 import Link from "next/link";
-import { NextPage } from 'next';
+//import { NextPage } from 'next';
 
 
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
@@ -20,6 +20,7 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -184,7 +185,7 @@ function a11yProps(index: number) {
               {fundraiserHistoryCardElems}
             </div>
           </div>
-            
+
           </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
