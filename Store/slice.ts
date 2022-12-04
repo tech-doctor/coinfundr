@@ -12,6 +12,7 @@ export interface Props {
   currentRaised:number;
   form:any;
   imageLink: any;
+  closed: boolean;
 }
 
 const initialState:Props = {
@@ -31,6 +32,7 @@ const initialState:Props = {
   },
   //form: null,
   imageLink: null,
+  closed: false
 }
 
 export const slice = createSlice ({

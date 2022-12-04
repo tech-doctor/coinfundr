@@ -11,10 +11,11 @@ interface Props{
   currentRaised: number;
   goal: number;
   donations: number;
+  closeFundraiser?:boolean;
 }
 
 
-const  FundraiserCard:React.FC<Props> = ({img, name, firstName, lastName, currentRaised, goal, donations}) => {
+const  FundraiserCard:React.FC<Props> = ({img, name, firstName, lastName, currentRaised, goal, donations, closeFundraiser}) => {
   return (
     <div className="h-[21rem] w-[16rem] flex flex-col bg-white rounded-[8px] shadow-[0_.2px_30px_4px_rgba(29,48,59,0.04)]">
       <img className="w-[16rem] rounded-t-[8px] h-1/2" src={img}/>
@@ -23,6 +24,12 @@ const  FundraiserCard:React.FC<Props> = ({img, name, firstName, lastName, curren
           <h3 className="text-[0.95rem]  font-bold text-[#1F1F1F]">{name}</h3>
           <p className="text-xs text-[#94999A]">by <span>{firstName}</span> <span>{lastName}</span> </p>
         </div>
+        <>
+        {closeFundraiser ?
+         <button className='text-left bg-[#BA181B] w-fit px-4 py-1 rounded-md text-white cursor-pointer'>
+           closed
+        </button> : 
+        <>
         <LinearProgress 
           variant="determinate" 
           value={(currentRaised / goal) * 100} 
@@ -43,7 +50,11 @@ const  FundraiserCard:React.FC<Props> = ({img, name, firstName, lastName, curren
             <h3 className="text-[0.95rem] font-bold text-[#1F1F1F] tracking-wide">{donations}</h3>
             <p className="text-xs text-[#94999A]">Total donations</p>
           </div>
-        </div>
+        </div> 
+        </>
+        }
+        
+        </>
       </div>
     </div>
   )

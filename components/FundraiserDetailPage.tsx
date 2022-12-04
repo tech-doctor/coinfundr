@@ -1,4 +1,6 @@
-import React,  { useState } from 'react'
+import React,  { useState } from 'react';
+import {useRouter} from 'next/router'
+import axios from 'axios'
 import { LinearProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -17,13 +19,21 @@ interface Props {
   description:string | undefined;
   donations: number | undefined;
   currentRaised?: any;
+  openFundraiser?: boolean;
   page?: string | undefined;
 }
 
+const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 
-const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, description, donations, currentRaised, page, firstName, lastName}) => {
+
+
+const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, nft,  goal, tag, description, donations, currentRaised, page, firstName, lastName}) => {
+   const {query} = useRouter();
+   const router = useRouter();
+   //console.log(query.id)
   const [redeemNft, setRedeemNft] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setIsLoading] = useState(false)
 
   const handleOpen = () => setRedeemNft(true);
   const handleClose = () => {
@@ -45,6 +55,23 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
     borderRadius: '15px',
     boxShadow: 24,
     p: 4,
+  }
+
+
+   const handleCloseFundraider = () => {
+    setIsLoading(true)
+    axios.put(`${BASE_URL}/api/closeFundraiser`, {
+      id: query.id
+    })
+    .then((response) => {
+      console.log(response);
+    setIsLoading(false);
+    router.push("/account")
+    })
+  .catch((error) => {
+     console.log(error)
+     setIsLoading(false);
+  })
   }
 
 
@@ -88,7 +115,9 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, img, nft,  goal, tag, 
                   <div className='mb-8'>
                     {page === 'individuals' || page === "search" ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.6rem] sm:py-[.7rem] md:py-[.8rem] rounded-[5px] self-start">Donate Now</button>
                       : (page === 'charities' ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.6rem] sm:py-[.7rem] md:py-[.8rem] rounded-[5px] self-start">Donate Now</button>
-                      : (isOpen && <button className="text-[1rem] font-bold bg-[#BA181B] text-[#FFFFFF] hover:bg-[#6A040F] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">Close Fundraiser</button>)
+                      : (openFundraiser && <button 
+                        onClick={handleCloseFundraider}
+                        className="text-[1rem] font-bold bg-[#BA181B] text-[#FFFFFF] hover:bg-[#6A040F] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">{loading? "Closing...": "Close Fundraiser"}</button>)
                       )}
                   </div>
                     

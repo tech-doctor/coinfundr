@@ -54,7 +54,8 @@ function a11yProps(index: number) {
  const  Account = () => {
   const walletAddress:string = useAppSelector(state => state.root.walletAddress)
   const [value, setValue] = React.useState(0);
-  const [myFundraisers, setMyFundraisers] = useState([])
+  const [myFundraisers, setMyFundraisers] = useState([]);
+  const [fundraiserHistory, setFundraiserHistory] = useState([]);
 
   useEffect(() => {
     const fetchData = () => {
@@ -64,7 +65,24 @@ function a11yProps(index: number) {
       .then((response) => {
       const result = response?.data.optimisedResult;
         console.log(result);
-    setMyFundraisers(response?.data.optimisedResult)
+    setMyFundraisers(response?.data.optimisedResult);
+      })
+    .catch((error) => {
+       console.log(error)
+    })
+    }
+    fetchData()
+  },[walletAddress])
+
+  useEffect(() => {
+    const fetchData = () => {
+      axios.post(`${BASE_URL}/api/closeFundraiser/getClosedFundraiser`, {
+        id: walletAddress
+      })
+      .then((response) => {
+      const result = response?.data.optimisedResult;
+        console.log(result);
+    setFundraiserHistory(response?.data.optimisedResult);
       })
     .catch((error) => {
        console.log(error)
@@ -92,6 +110,7 @@ function a11yProps(index: number) {
               goal={item?.amount}
               donations={item?.donations}
               currentRaised={item?.currentRaised}
+              
             />
           </Link>
         </React.Fragment>
@@ -100,26 +119,25 @@ function a11yProps(index: number) {
   })
 
 
-  const fundraiserHistoryCardElems = myFundraisers.map((item:any) => {
+  const fundraiserHistoryCardElems = fundraiserHistory.map((item:any) => {
    // if (!item.isOpen) {
-      return (
-          <React.Fragment key = {item.id}>
-            <Link  href="/account/[id]" as={`/account/${item.id}`}>
-            <FundraiserCard 
-              //id={item?.id}
-              name={item?.fundraiserName}
-              img={item?.imageLink}
-              firstName = {item?.firstName}
-              lastName = {item?.lastName}
-              goal={item?.amount}
-              donations={item?.donations}
-              currentRaised={item?.currentRaised}
-            />
-             </Link>
-          </React.Fragment>
-       
-      )
-   // }
+    return (
+      <React.Fragment key = {item.id}>
+        <Link  href="/account/[id]" as={`/account/${item.id}`}>
+        <FundraiserCard 
+          //id={item?.id}
+          name={item?.fundraiserName}
+          img={item?.imageLink}
+          firstName = {item?.firstName}
+          lastName = {item?.lastName}
+          goal={item?.amount}
+          donations={item?.donations}
+          currentRaised={item?.currentRaised}
+          closeFundraiser = {true}
+        />
+        </Link>
+      </React.Fragment>
+    )
   })
 
   const nftBadgeElems = nftData.map(item  => (

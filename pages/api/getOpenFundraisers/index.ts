@@ -4,13 +4,11 @@ import db from '../../../utils/db';
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   const id:any = req.query.id;
-
+  
     try{
     if(req.method === 'POST') {
       const snapshot =  await db.collection('General').where('walletAddress', '==',  
-      req.body.id
-      // "0xfdd3160870008fcd24d62b0f0fd3a54eafc9f1f3"
-      ).get();
+      req.body.id).get();
 
      const data =  snapshot.docs.map(doc => ({
       id: doc.id,

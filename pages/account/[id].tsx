@@ -13,8 +13,7 @@ const  FundraiserDetail:NextPage<Props> = ({ data }) => {
     const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
   return  (
     <Layout
-      title='Account'
-    >
+      title='Account'>
       <FundraiserDetailPage
       name={fundraiserName}
       img={imageLink}
@@ -25,6 +24,7 @@ const  FundraiserDetail:NextPage<Props> = ({ data }) => {
       description={reasonForFund}
       donations={donations}
       currentRaised={currentRaised}
+      openFundraiser = {true}
     />
     </Layout>
   )
