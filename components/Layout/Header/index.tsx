@@ -46,9 +46,9 @@ const Header = () => {
         <div className="left">
           <ActiveLink href = {'/'}>
             <img 
-            onClick={() => {
-              router.reload()
-            }}
+            // onClick={() => {
+            //   router.reload()
+            // }}
              className="w-32" src='/logo.png' alt='Coinfundr-logo'/>
           </ActiveLink>  
         </div>

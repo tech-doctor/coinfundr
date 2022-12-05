@@ -2,8 +2,6 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import FundraiserDetailPage from '../../components/FundraiserDetailPage';
 import { NextPage } from 'next';
-
-
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 
 
 interface Props {
@@ -12,7 +10,6 @@ interface Props {
 const FundraiserIndividualDetail:NextPage<Props> = ({ data }) => {
 //  console.log(data)
   const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
-
   return  (
     <Layout
       title='Individual Fundraiser'

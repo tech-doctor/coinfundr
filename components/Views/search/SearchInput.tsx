@@ -18,20 +18,15 @@ function  SearchInput({ onFocusHandler }: SearchProps) {
 
   const searchEndpoint = (query: string) => `/api/search?q=${query}`
 
-const fetchData = async() => {
-  const res = await fetch(`${BASE_URL}/api/getAll`)
-  const data = await res.json()
-  console.log(data)
-  setData(data)
-}
+  const fetchData = async() => {
+    const res = await fetch(`${BASE_URL}/api/getAll`)
+    const data = await res.json()
+    setData(data)
+  }
 
 useEffect(() => {
   fetchData()
 },[])
-
-//console.log(data)
-
-
 
   const onChange = useCallback((event: any) => {
       const query = event.target.value

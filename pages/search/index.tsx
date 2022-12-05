@@ -193,14 +193,21 @@ const  Search:NextPage<Props> = ({data}) => {
   )
 }
 
-export async function getStaticProps() {
+
+ async function loadAll () {
   const res = await fetch(`${BASE_URL}/api/getAll`)
-  const data = await res.json()
+  const result = await res.json();
+
+  return result
+}
+
+export async function getServerSideProps() {
+  const data = await loadAll()
   return {
     props: {
       data,
     },
-    revalidate: 10
+    //revalidate: 10
   }
 }
 

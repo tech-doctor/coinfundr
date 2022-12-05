@@ -33,9 +33,12 @@ const FundraiserSearchDetail:NextPage<Props> = ({ data }) => {
     )
   }
 
+
+
+
   export async function getServerSideProps(context:any) {
     const id = context.params.id
-    const res = await fetch(`${BASE_URL}/api/getIndividuals/${id}`)
+    const res = await fetch(`${BASE_URL}/api/getAll/${id}`)
     const data = await res.json()
     return {
       props: {

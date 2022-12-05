@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import Charity from '../components/Views/UserFlow/Charity';
 
 
-const  Home = () => {
+const  home = () => {
   return (
     <Layout
     title='Home'
@@ -38,4 +38,4 @@ const  Home = () => {
   )
 }
 
-export default Home;
+export default home;
