@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
-const serviceAccount = require('./serviceAccountKey.json');
-//import serviceAccount from './serviceAccountKey.json';
+//const serviceAccount = require('./serviceAccountKey.json');
+import serviceAccount from './serviceAccountKey.json';
 //import firebaseAccountCredentials from "./serviceAccountKey.json"
 
 //console.log(admin);
@@ -14,7 +14,7 @@ if(!admin.apps.length){
       credential:admin.credential.cert(serviceAccount)
     });
   } 
-  catch(error:any) {
+  catch(error) {
     console.log(error.stack)
   }
 }
