@@ -10,7 +10,7 @@ Coinfundr aims to implement a concept we call 'proof of charity'. What this mean
 Coinfundr runs on the polygon network.
 
 ## How to Use
-* Load the webpage for coinfundr at: 
+* Load the webpage for coinfundr at: https://coinfundr.netlify.app/
 * Start a fundraiser or Connect your Metamask wallet.
 * Select a reason for setting up a fundraiser.
 * Choose when you want to create a fundraiser for yourself or for a charity.
