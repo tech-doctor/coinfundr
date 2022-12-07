@@ -6,12 +6,6 @@ import Link from 'next/link';
 import React,{Fragment} from 'react';
 import { NextPage } from 'next';
 
-//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
-//https://timely-liger-06eb9f.netlify.app/individuals
-
-// interface Prop {
-//   data:any
-// }
 
 const  Individuals = () => {
    const [data, setdata] = useState<any>([]);
