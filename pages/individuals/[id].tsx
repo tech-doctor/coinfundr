@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { BASE_URL } from '../../components/constant';
+//import { BASE_URL } from '../../components/constant';
 import FundraiserDetailPage from '../../components/FundraiserDetailPage';
 import { NextPage } from 'next';
 //const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 

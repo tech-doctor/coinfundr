@@ -6,18 +6,12 @@ import Link from 'next/link';
 import React,{Fragment} from 'react';
 import { NextPage } from 'next';
 
+interface Props {
+   data:any
+}
 
-const  Individuals = () => {
-   const [data, setdata] = useState<any>([]);
-
-  useEffect(() => {
-    const fetchData = async() => {
-    const res = await fetch(`${BASE_URL}/api/getIndividuals`)
-    const data = await res.json();
-    setdata(data)
-    }
-    fetchData()
-  },[])
+const  Individuals:NextPage<Props> = ({data}) => {
+   //const [data, setdata] = useState<any>([]);
 
   return (
     <Layout
@@ -50,15 +44,15 @@ const  Individuals = () => {
   )
 }
 
-// export async function getServerSideProps() {
-//   const res = await fetch(`${BASE_URL}/api/getIndividuals`)
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//     //revalidate:10
-//   }
-// }
+export async function getServerSideProps() {
+  const res = await fetch(`${BASE_URL}/api/getIndividuals`)
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+    //revalidate:10
+  }
+}
 
 export default Individuals;

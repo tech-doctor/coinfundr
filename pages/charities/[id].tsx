@@ -1,9 +1,10 @@
 import Layout from '../../components/Layout';
 import FundraiserDetailPage from '../../components/FundraiserDetailPage';
 import React from 'react';
+import { BASE_URL } from '../../components/constant';
 import { NextPage } from 'next';
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 interface Props {
   data:any;
 }
