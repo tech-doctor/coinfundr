@@ -11,7 +11,7 @@ const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 //   data:any
 // }
 
-const  individuals = () => {
+const  Individuals = () => {
    const [data, setdata] = useState<any>([]);
 
   useEffect(() => {
@@ -65,4 +65,4 @@ const  individuals = () => {
 //   }
 // }
 
-export default individuals;
+export default Individuals;
