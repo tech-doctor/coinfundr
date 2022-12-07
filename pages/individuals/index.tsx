@@ -1,11 +1,13 @@
 import {useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import FundraiserCard from '../../components/FundraiserCard';
+import { BASE_URL } from '../../components/constant';
 import Link from 'next/link';
 import React,{Fragment} from 'react';
 import { NextPage } from 'next';
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
+//https://timely-liger-06eb9f.netlify.app/individuals
 
 // interface Prop {
 //   data:any
