@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import FundraiserCard from '../../components/FundraiserCard';
 import Link from 'next/link';
@@ -6,11 +7,22 @@ import { NextPage } from 'next';
 
 const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 
-interface Prop {
-  data:any
-}
+// interface Prop {
+//   data:any
+// }
 
-const  individuals:NextPage<Prop> = ({data}) => {
+const  individuals = () => {
+   const [data, setdata] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async() => {
+    const res = await fetch(`${BASE_URL}/api/getIndividuals`)
+    const data = await res.json();
+    setdata(data)
+    }
+    fetchData()
+  },[])
+
   return (
     <Layout
     title='Individuals'
@@ -42,15 +54,15 @@ const  individuals:NextPage<Prop> = ({data}) => {
   )
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`${BASE_URL}/api/getIndividuals`)
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-    //revalidate:10
-  }
-}
+// export async function getServerSideProps() {
+//   const res = await fetch(`${BASE_URL}/api/getIndividuals`)
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//     //revalidate:10
+//   }
+// }
 
 export default individuals;

@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  target: 'serverless'
+  //target: 'serverless'
 }
 
 
