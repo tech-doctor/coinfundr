@@ -9,6 +9,7 @@ export interface Props {
   charity: any;
   amount: number | undefined;
   donations: number,
+  donators:any,
   currentRaised:number;
   form:any;
   imageLink: any;
@@ -23,6 +24,7 @@ const initialState:Props = {
   charity: null,
   amount: 0,
   donations: 0,
+  donators: null,
   currentRaised: 0,
   form: {
     firstName: '',

@@ -7,14 +7,21 @@ import { connectWallet, getCurrentwalletConnected } from '../../../utils/Interac
 import ActiveLink from './activeLink';
 import AccountComponent from '../../AccountHeader';
 import MobileHeader from './mobile';
+import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-   const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
-  const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
 
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { isLoading, pendingConnector, connect, connectors } = useConnect();
+
+  //const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
+  const [displayPopUp, setDisplayPopup] = useState<boolean>(isConnected);
+
+  console.log(address, isConnected);
 
   useEffect (() => {
     const getWalletStatus =  async() => {
@@ -28,13 +35,17 @@ const Header = () => {
   },[])
 
   const connectWalletFunc = async() => {
-    const connect  = await connectWallet();
-    //dispatch(updateWalletStatus(true))
-    dispatch(updateWalletAddress(connect.address))
-   if(connect.status === 200){
-    dispatch(updateWalletStatus(true))
-    setDisplayPopup(true);
-   }
+    // const connect  = await connectWallet();
+    // dispatch(updateWalletAddress(connect.address))
+
+  //  if(connect.status === 200){
+  //   dispatch(updateWalletStatus(true))
+  //   setDisplayPopup(true);
+  //  }
+  connectors.map((connector) => (
+  connect({ connector 
+  })
+  ))
     setTimeout(() => {
       setDisplayPopup(false);
     }, 3000)
@@ -81,8 +92,7 @@ const Header = () => {
             </li> : 
           <AccountComponent
             displayPopUp = {displayPopUp}
-          />
-          }
+          />}
         </ul>
         <ul className=' mobile_account md:hidden'>
           <li className='cursor-pointer'>
