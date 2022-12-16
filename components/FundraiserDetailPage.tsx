@@ -166,45 +166,25 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, address, openFundraise
                 </div>
               </div>
 
-                <p className="py-8 font-medium lg:font-semibold text-[1.1rem] sm:text-[1.2rem] md:text-[1.3rem] border-b-2 border-[#D9D9D9] ">
-                  {description}
-                </p>
+              <div className='mb-8'>
+                    {page === 'individuals' || page === "search" ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.6rem] sm:py-[.7rem] md:py-[.8rem] rounded-[5px] self-start">Donate Now</button>
+                      : (page === 'charities' ? <button onClick={handleOpenTwo} className="text-[1rem] font-bold bg-[#FFC300] text-[#1F1F1F] hover:bg-[#FFD60A] px-[1.2rem] py-[.6rem] sm:py-[.7rem] md:py-[.8rem] rounded-[5px] self-start">Donate Now</button>
+                      : (openFundraiser && <button 
+                        onClick={handleCloseFundraider}
+                        className="text-[1rem] font-bold bg-[#BA181B] text-[#FFFFFF] hover:bg-[#6A040F] px-[1.2rem] py-[.8rem] rounded-[5px] self-start">{loading? "Closing...": "Close Fundraiser"}</button>)
+                      )}
+                  </div>
+                    
+                    <h5 className="font-bold text-sm sm:text-md text-[#5E6364]">&bull; {tag}</h5>
 
-                {/* <h2 className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.5rem] py-8 font-bold text-[#6D66FB] text-center lg:text-left">Latest Donations</h2>
-               
-               <div className="flex flex-wrap justify-between mb-8 break-all">
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-                  <div className="flex flex-col mb-8 mx-auto lg:mx-0">
-                    <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
-                    <p className="text-sm text-[#94999A]">$40</p>
-                  </div>
-              </div> */}
           </div>
+        </div>
 
           <p className="py-8 font-medium lg:font-semibold text-[1.1rem] sm:text-[1.2rem] md:text-[1.3rem] border-b-2 border-[#D9D9D9] ">
             {description}
           </p>
 
-          <h2 className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.5rem] py-8 font-bold text-[#6D66FB] text-center lg:text-left">Latest Donations</h2>
+          {/* <h2 className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.5rem] py-8 font-bold text-[#6D66FB] text-center lg:text-left">Latest Donations</h2>
             
           <div className="flex flex-wrap justify-between mb-8 break-all">
             <div className="flex flex-col mb-8 mx-auto lg:mx-0">
@@ -231,8 +211,7 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, address, openFundraise
               <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
               <p className="text-sm text-[#94999A]">$40</p>
             </div>
-          </div>
-        </div>
+          </div> */}
       </div>
 
     <Modal

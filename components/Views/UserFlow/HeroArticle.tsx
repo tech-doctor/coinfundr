@@ -79,7 +79,7 @@ const HeroArticle = () => {
     //<div>
     //     Connected to {address}
     //     <button onClick={() => disconnect()}>Disconnect</button>
-    //  </div>
+     //</div>
       <Snackbar
         open={open}
         autoHideDuration={2500}

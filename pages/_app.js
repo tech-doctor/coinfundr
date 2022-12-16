@@ -15,7 +15,7 @@ import {
  import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
  import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
  
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 import {store} from '../Store'
 
 
@@ -25,7 +25,7 @@ const { chains, provider, webSocketProvider } = configureChains([chain.polygonMu
 ])
 
 const client = createClient({
-  autoConnect: true,
+  autoConnect: false,
   connectors: [
     new MetaMaskConnector({ chains }),
     // new CoinbaseWalletConnector({
