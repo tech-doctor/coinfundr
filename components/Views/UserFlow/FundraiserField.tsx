@@ -7,6 +7,7 @@ import { updateImageLink, updateForm } from '../../../Store/slice';
 import { getCharityDetails } from '../charityDetails';
 import Amount from './Amount';
 import FundraiserSuccess from './FundraiserSuccess';
+
 //import { sendUserFlow } from '../../../utils/db/fetchData';
 import axios from 'axios';
 

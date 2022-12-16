@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
+import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { useAppSelector, useAppDispatch } from '../../../Store/hooks';
 import { updateWalletAddress, updateWalletStatus } from '../../../Store/slice';
 import { connectWallet, getCurrentwalletConnected } from '../../../utils/Interact';
@@ -9,10 +10,21 @@ import AccountComponent from '../../AccountHeader';
 import MobileHeader from './mobile';
 
 
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+
 const Header = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-   const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
+  //  const isConnected:boolean = useAppSelector(state => state.root.walletIsConnected)
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { isLoading, pendingConnector, connect, connectors } = useConnect();
+  const [open , setOpen] = useState(isConnected)
+
+
   const [displayPopUp, setDisplayPopup] = useState<boolean>(false);
 
 
@@ -27,6 +39,14 @@ const Header = () => {
     getWalletStatus()
   },[])
 
+  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  }
+
   const connectWalletFunc = async() => {
     const connect  = await connectWallet();
     //dispatch(updateWalletStatus(true))
@@ -39,6 +59,22 @@ const Header = () => {
       setDisplayPopup(false);
     }, 3000)
   }
+
+  const action = (
+    <React.Fragment>
+      <button className="px-4 text-[#E5383B]" onClick={() => disconnect()}>
+        DISCONNECT
+      </button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <div className=' px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 2xl:px-14 shadow-md md:shadow-none pb-1 md:pb-0'>
@@ -71,17 +107,20 @@ const Header = () => {
               Charities
            </ActiveLink>
           </li>
-          {!isConnected?
-            <li 
-            onClick={connectWalletFunc}
-            className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer
-            hover:bg-black hover:text-white
-            ">
-              Connect MetaMask  Wallet
-            </li> : 
-          <AccountComponent
-            displayPopUp = {displayPopUp}
-          />
+          {isConnected ?
+            <AccountComponent
+              displayPopUp = {displayPopUp}
+            /> 
+                :
+            <li>
+              {connectors.map((connector) => (
+                <button 
+                  disabled={!connectors[0].ready}
+                  key={connectors[0].id}
+                  onClick={() => connect({ connector })}
+                  className="search font-medium ml-3 border-2 border-black py-1 px-3 rounded-sm cursor-pointer hover:bg-black hover:text-white">Connect Metamask Wallet</button>
+              ))}
+            </li> 
           }
         </ul>
         <ul className=' mobile_account md:hidden'>
@@ -90,6 +129,20 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      {isConnected &&
+      
+      //<div>
+      //     Connected to {address}
+      //     <button onClick={() => disconnect()}>Disconnect</button>
+      //  </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={2500}
+          onClose={handleClose}
+          message={`Connected to ${address}`}
+          action={action}
+        />
+      }
     </div>
   )
 }

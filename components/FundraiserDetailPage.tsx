@@ -6,6 +6,17 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 
+import { useDebounce } from 'use-debounce'
+
+import {
+    usePrepareSendTransaction,
+    useSendTransaction,
+    useWaitForTransaction,
+} from 'wagmi'
+
+import { utils } from 'ethers'
+
+
 
 interface Props {
   id?:number |  undefined;
@@ -19,6 +30,7 @@ interface Props {
   description:string | undefined;
   donations: number | undefined;
   currentRaised?: any;
+  address: any
   openFundraiser?: boolean;
   page?: string | undefined;
 }
@@ -27,7 +39,7 @@ const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 
 
 
-const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, nft,  goal, tag, description, donations, currentRaised, page, firstName, lastName}) => {
+const FundraiserDetailPage:React.FC<Props> =  ({id, name, address, openFundraiser, img, nft,  goal, tag, description, donations, currentRaised, page, firstName, lastName}) => {
    const {query} = useRouter();
    const router = useRouter();
    //console.log(query.id)
@@ -35,7 +47,30 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, n
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setIsLoading] = useState(false)
 
-  const handleOpen = () => setRedeemNft(true);
+  const [amount, setAmount] = React.useState('')
+  const [debouncedValue] = useDebounce(amount, 500)
+
+  const [displaySuccessful, setDisplaySuccessful]= useState(true)
+
+
+  const { config } = usePrepareSendTransaction({
+      request: {
+          to: '0x75267105a55F3961929899F92FA898F94bcECBD3',
+          value: debouncedValue ? utils.parseEther(debouncedValue) : undefined,
+      },
+  })
+
+
+  const { data, sendTransaction } = useSendTransaction(config)
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+      hash: data?.hash,
+    })
+
+
+
+
+  // const handleOpen = () => setRedeemNft(true);
   const handleClose = () => {
     setRedeemNft(false);
     setIsOpen(false)
@@ -129,7 +164,7 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, n
                   {description}
                 </p>
 
-                <h2 className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.5rem] py-8 font-bold text-[#6D66FB] text-center lg:text-left">Latest Donations</h2>
+                {/* <h2 className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.5rem] py-8 font-bold text-[#6D66FB] text-center lg:text-left">Latest Donations</h2>
                
                <div className="flex flex-wrap justify-between mb-8 break-all">
                   <div className="flex flex-col mb-8 mx-auto lg:mx-0">
@@ -156,7 +191,7 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, n
                     <h5 className="text-sm font-bold  text-[#1F1F1F]">0xf21148F8d967dDD0C2a2e014b6Dba065ce214Ea85ce214Ea8</h5>
                     <p className="text-sm text-[#94999A]">$40</p>
                   </div>
-              </div>
+              </div> */}
           </div>
       </div>
 
@@ -174,16 +209,29 @@ const FundraiserDetailPage:React.FC<Props> =  ({id, name, openFundraiser, img, n
           Kindly comfirm much would you like to donate?
       </Typography>
       
-      <div className="flex justify-between mt-8 w-full">
+      <div className="flex justify-around mt-8 w-full">
         <input 
-          type="number"
-          className="input border w-1/2 py-1 sm:py-1.5 px-3 rounded-full outline-none"
+          aria-label="Amount (ether)" 
+          className="input border w-2/3 py-1 sm:py-1.5 px-3  rounded-[8px] outline-none"
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Please Input amount of MATIC you want to send"
+          value={amount}
           required
         />
-        {page === 'individuals' || page === "search" ? <button className="text-[1rem] font-semibold bg-[#FFC300] text-white px-[1rem] py-[.3rem] sm:py-[.5rem] rounded-[5px] self-start">Donate</button>
-        : <button onClick={handleOpen} className="text-[1rem] font-semibold bg-[#FFC300] text-white px-[1rem] py-[.3rem] sm:py-[.5rem] rounded-[5px] self-start">Donate</button>
+        {page === 'individuals' || page === "search" ? <button onClick={(e) => {sendTransaction?.()}} disabled={isLoading || !sendTransaction  || !amount} className="text-[1rem] font-semibold bg-[#0F8E4B] text-white px-[1rem] py-[.3rem] sm:py-[.5rem] rounded-[5px]">{isLoading ? 'Sending...' : 'Send'}</button>
+        : <button onClick={(e) => {
+          sendTransaction?.()
+          if (isSuccess) {setRedeemNft(true)}
+          }} disabled={isLoading || !sendTransaction  || !amount} className="text-[1rem] font-semibold bg-[#0F8E4B] text-white px-[1rem] py-[.3rem] sm:py-[.5rem] rounded-[5px] ">{isLoading ? 'Sending...' : 'Send'}</button>
         }
       </div>
+      {isSuccess && 
+        <div>
+          <p>Successfully sent {amount} MATIC to {address}</p>
+          <div>
+            <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+          </div>
+        </div>}
       </Box>
     </Modal> 
 
