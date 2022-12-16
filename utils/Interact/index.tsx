@@ -52,7 +52,7 @@ export const connectWallet = async () => {
         const addressArray = await window.ethereum.request({
           method: "eth_accounts",
         });
-        console.log(addressArray)
+        //console.log(addressArray)
         if(addressArray.length > 0) {
           return{
             address: addressArray[0],

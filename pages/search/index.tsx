@@ -1,13 +1,14 @@
 import Layout from '../../components/Layout';
 import {useState} from 'react'
 import { LinearProgress } from '@mui/material';
+import { BASE_URL } from '../../components/constant';
 //import { data } from '../../components/data'
 import Link from "next/link"
 import SearchInput from '../../components/Views/search/SearchInput'
 import { NextPage } from 'next';
 
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER 
 
 interface Props{
   data:any

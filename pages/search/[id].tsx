@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { BASE_URL } from '../../components/constant';
 import Layout from '../../components/Layout'
 import FundraiserDetailPage from '../../components/FundraiserDetailPage';
 import { NextPage } from 'next'
@@ -7,7 +8,7 @@ interface Props {
   data:any
 }
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 
 
 
 const FundraiserSearchDetail:NextPage<Props> = ({ data }) => {

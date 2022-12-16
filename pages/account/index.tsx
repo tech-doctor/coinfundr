@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../Store/hooks';
 import Layout from '../../components/Layout';
+import { BASE_URL } from '../../components/constant';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -13,7 +14,7 @@ import Link from "next/link";
 //import { NextPage } from 'next';
 
 
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER;
 
 interface TabPanelProps {
   children?: React.ReactNode;

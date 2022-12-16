@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
+import { BASE_URL } from '../../components/constant';
+//import { BASE_URL } from '../../components/constant';
 import FundraiserDetailPage from '../../components/FundraiserDetailPage';
 import { NextPage } from 'next';
-const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 
+//const BASE_URL =  process.env.NEXT_PUBLIC_SERVER; 
 
 interface Props {
   data: any;
 }
+
 const FundraiserIndividualDetail:NextPage<Props> = ({ data }) => {
-//  console.log(data)
+  //console.log(data)
   const {imageLink, amount, reason,donations,currentRaised, form: {firstName, lastName,fundraiserName, reasonForFund}} = data;
   return  (
     <Layout
